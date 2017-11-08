@@ -1,5 +1,20 @@
 ---
 - name: Converge
   hosts: all
+  pre_tasks:
+    # You can set these values via env vars:
+    #
+    #   * GRSECURITY_USERNAME
+    #   * GRSECURITY_PASSWORD
+    #
+    # The role will then automatically pick them up and these assert
+    # statements will pass.
+    - name: Check for grsecurity login credentials.
+      assert:
+        that:
+          - grsecurity_build_download_username != ''
+          - grsecurity_build_download_password != ''
   roles:
     - role: ansible-role-grsecurity-build
+      grsecurity_build_patch_type: stable2
+      grsecurity_build_strategy: manual
