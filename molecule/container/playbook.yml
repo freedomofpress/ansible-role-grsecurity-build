@@ -1,6 +1,20 @@
 ---
-- name: Converge
+- name: Bootstrap user env.
   hosts: all
+  remote_user: root
+  tasks:
+    - name: Set passwordless sudo.
+      lineinfile:
+        dest: /etc/sudoers
+        regexp: '^%sudo'
+        line: '%sudo ALL=(ALL) NOPASSWD:ALL'
+        validate: '/usr/sbin/visudo -cf %s'
+
+- name: Configure kernel build.
+  hosts: all
+  remote_user: vagrant
+  environment:
+    USER: vagrant
   pre_tasks:
     # You can set these values via env vars:
     #
@@ -14,6 +28,7 @@
         that:
           - grsecurity_build_download_username != ''
           - grsecurity_build_download_password != ''
+
   roles:
     - role: ansible-role-grsecurity-build
       grsecurity_build_patch_type: stable2
