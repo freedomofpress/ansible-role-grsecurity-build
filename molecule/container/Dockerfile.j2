@@ -9,8 +9,10 @@ RUN if [ $(command -v apt-get) ]; then apt-get update && apt-get upgrade -y && a
     elif [ $(command -v apk) ]; then apk update && apk add --no-cache python sudo bash ca-certificates; fi
 
 
-RUN apt-get install -y sudo
+RUN apt-get install -y sudo paxctl
 RUN adduser --disabled-password vagrant
 RUN usermod -aG sudo vagrant
+
+RUN paxctl -cm /usr/bin/python2.7
 
 USER vagrant
