@@ -1,2 +1,3 @@
 molecule>=2.4
 python-vagrant
+docker-py
