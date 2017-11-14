@@ -1,0 +1,61 @@
+---
+- name: Create working directory for kernel compilation.
+  file:
+    path: "{{ grsecurity_build_download_directory }}"
+    state: directory
+
+- name: Set hardcoded source directory as fact.
+  set_fact:
+    grsecurity_build_linux_source_directory: "{{ grsecurity_build_download_directory }}/linux-grsec-source-4.9"
+
+- name: Clean source directory prior to extraction.
+  file:
+    # Hardcoded pathname because dirname is predictable and static.
+    path: "{{ grsecurity_build_linux_source_directory }}"
+    state: absent
+
+# Since these are .xz archives, we can't provide a dest argument trivially,
+# so we'll first copy them into a user-writable directory prior to extraction.
+- name: Copy Linux tarball and patch archive to working directory.
+  command: cp {{ item }} {{ grsecurity_build_download_directory }}/
+  with_items:
+    - /usr/src/linux-grsec-source-4.9.tar.xz
+    - /usr/src/linux-patch-4.9-grsec.patch.xz
+
+- name: Extract Linux tarball (.xz -> .tar).
+  command: unxz -f linux-grsec-source-4.9.tar.xz
+  args:
+    chdir: "{{ grsecurity_build_download_directory }}"
+
+- name: Extract Linux tarball (.tar -> directory).
+  command: tar -xf linux-grsec-source-4.9.tar
+  args:
+    chdir: "{{ grsecurity_build_download_directory }}"
+
+- name: Extract grsecurity patch(.xz -> patch).
+  # Hardcoded src pathname because filename is predictable and static.
+  command: unxz -f "{{ grsecurity_build_download_directory }}/linux-patch-4.9-grsec.patch.xz"
+
+- name: Apply grsecurity patch.
+  patch:
+    remote_src: true
+    # Hardcoded src pathname because filename is predictable and static.
+    src: "{{ grsecurity_build_download_directory }}/linux-patch-4.9-grsec.patch"
+    basedir: "{{ grsecurity_build_linux_source_directory }}"
+    strip: 1
+
+- name: Clean kernel source tree.
+  command: make clean
+  args:
+    chdir: "{{ grsecurity_build_linux_source_directory }}"
+
+  # Bail out for interactive compilation. Override interactive mode
+  # by setting `grsecurity_build_strategy`
+- name: Advise on next steps for manually compiling kernel.
+  debug:
+    msg: >
+      Build environment ready. Kernel source is available in
+      {{ grsecurity_build_linux_source_directory }} . Run `make menuconfig` in that
+      directory to configure the build, then `{{ grsecurity_build_compile_command }}`
+      or similar to begin compiling the kernel.
+  when: grsecurity_build_strategy == "manual"

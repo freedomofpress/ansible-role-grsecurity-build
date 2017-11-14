@@ -1,7 +1,7 @@
 ---
-# Can be "stable" or "stable2". Defaults to "stable2" because "stable"
-# applies to the 3.14.79 kernel source, which has been EOL'd.
-grsecurity_build_patch_type: stable2
+# Can be "unofficial", "stable", or "stable2". Defaults to "unofficial" because
+# "stable2" because "stable" require subscription access.
+grsecurity_build_patch_type: unofficial
 
 # The default "manual" strategy will prep a machine for compilation,
 # but stop short of configuring and compiling. You can instead choose
