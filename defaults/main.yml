@@ -55,7 +55,6 @@ grsecurity_build_revision: "{{ linux_kernel_version }}-grsec-{{ grsecurity_versi
 # variables, such as PATH munging for ccache and setting workers to number of VCPUs.
 grsecurity_build_compile_command:
   fakeroot make-kpkg
-  --revision {{ grsecurity_build_revision }}
   {% if grsecurity_build_include_ubuntu_overlay == true %} --overlay-dir=../ubuntu-package {% endif %}
   --initrd {{ grsecurity_build_kpkg_targets|join(' ') }}
 
