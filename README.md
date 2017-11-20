@@ -145,6 +145,14 @@ grsecurity_build_gpg_keys_ubuntu:
     - role: freedomofpress.grsecurity-build
 ```
 
+## Testing
+The role uses [Molecule] for testing. Set up a testing environment with:
+
+```bash
+pip install -r molecule/requirements.txt
+molecule test -s securedrop
+```
+
 ## Further reading
 
 * [Official grsecurity website](https://grsecurity.net/)
@@ -155,3 +163,4 @@ grsecurity_build_gpg_keys_ubuntu:
 [SecureDrop]: https://securedrop.org
 [grsecurity]: https://grsecurity.net/
 [grsecurity subscription]: https://grsecurity.net/business_support.php
+[Molecule]: https://molecule.readthedocs.org
