@@ -71,6 +71,13 @@ grsecurity_build_fetch_packages_dest: "./"
 grsecurity_build_download_username: "{{ lookup('env', 'GRSECURITY_USERNAME')|default('') }}"
 grsecurity_build_download_password: "{{ lookup('env', 'GRSECURITY_PASSWORD')|default('') }}"
 
+# Filepath to local grsecurity patch file on the Ansible controller, for copying
+# to remote build host. Sidesteps need for authenticated network calls on every
+# run of the role. Assumes the patch file is the latest, since it must match
+# a specific kernel version.
+grsecurity_build_patch_filename: ''
+grsecurity_build_patch_sig_filename: "{{ grsecurity_patch_filename }}.sig"
+
 # List of GPG keys required for building grsecurity-patched kernel.
 grsecurity_build_gpg_keys:
   - name: Greg Kroah-Hartman GPG key (Linux stable release signing key)

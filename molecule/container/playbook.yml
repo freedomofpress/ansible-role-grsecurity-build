@@ -28,6 +28,10 @@
         that:
           - grsecurity_build_download_username != ''
           - grsecurity_build_download_password != ''
+      # Don't try authenticated network calls if we have the patch files
+      # locally already.
+      when: grsecurity_build_patch_filename is not defined
+            or grsecurity_build_patch_filename == ''
 
   roles:
     - role: ansible-role-grsecurity-build
