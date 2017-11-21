@@ -1,0 +1,21 @@
+---
+- name: Converge
+  hosts: all
+  vars:
+    molecule_scenario_directory: "{{ lookup('env', 'MOLECULE_SCENARIO_DIRECTORY') }}"
+  pre_tasks:
+    - name: Find local deb packages.
+      become: no
+      delegate_to: localhost
+      find:
+        paths:
+          - "{{ molecule_scenario_directory+'/../grsec-build-container' }}"
+        patterns:
+          - '*-image-*.deb'
+      register: grsec_deb_packages_result
+
+    - debug: var=grsec_deb_packages_result
+
+  roles:
+    - role: ~/freedomofpress/ansible-role-grsecurity-install
+      grsecurity_install_deb_packages: "{{ grsec_deb_packages_result.files|map(attribute='path')|list }}"
