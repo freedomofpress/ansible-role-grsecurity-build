@@ -1,0 +1,11 @@
+---
+# Not using get_url because it doesn't follow redirects.
+- name: Copy grsecurity patch.
+  copy:
+    src: "{{ grsecurity_build_patch_filename }}"
+    dest: "{{ grsecurity_build_download_directory }}/{{ grsecurity_build_patch_filename }}"
+
+- name: Copy grsecurity signature.
+  copy:
+    src: "{{ grsecurity_build_patch_sig_filename }}"
+    dest: "{{ grsecurity_build_download_directory }}/{{ grsecurity_build_patch_sig_filename }}"
