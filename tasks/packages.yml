@@ -24,5 +24,7 @@
     state: latest
     update_cache: true
     cache_valid_time: 3600
-  with_items: "{{ grsecurity_build_apt_packages }}"
+  with_flattened:
+    - "{{ grsecurity_build_apt_packages }}"
+    - "{{ ['linux-grsec-source-4.9'] if grsecurity_build_patch_type == 'unofficial' else [] }}"
   become: yes

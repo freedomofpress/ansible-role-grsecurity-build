@@ -1,0 +1,23 @@
+---
+- name: Bootstrap user env.
+  hosts: all
+  remote_user: root
+  tasks:
+    - name: Set passwordless sudo.
+      lineinfile:
+        dest: /etc/sudoers
+        regexp: '^%sudo'
+        line: '%sudo ALL=(ALL) NOPASSWD:ALL'
+        validate: '/usr/sbin/visudo -cf %s'
+
+- name: Configure kernel build.
+  hosts: all
+  remote_user: vagrant
+  environment:
+    USER: vagrant
+  vars:
+    molecule_scenario_directory: "{{ lookup('env', 'MOLECULE_SCENARIO_DIRECTORY') }}"
+    grsecurity_build_custom_config: "{{ molecule_scenario_directory }}/linux-config"
+    grsecurity_build_compile_command: make deb-pkg
+  roles:
+    - role: ansible-role-grsecurity-build

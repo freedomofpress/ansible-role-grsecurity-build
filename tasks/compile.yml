@@ -19,10 +19,7 @@
   find:
     paths:
       - "{{ grsecurity_build_download_directory }}"
-    patterns:
-      # Intentionally fuzzy fileglob to support fetching back multiple
-      # build targets, e.g. image, headers, src, manual, etc.
-      - linux-*-{{ linux_kernel_version }}-grsec*.deb
+    patterns: "{{ grsecurity_build_fetch_patterns }}"
   register: grsecurity_build_find_packages_result
   tags: fetch
 

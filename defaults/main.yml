@@ -1,7 +1,7 @@
 ---
-# Can be "stable" or "stable2". Defaults to "stable2" because "stable"
-# applies to the 3.14.79 kernel source, which has been EOL'd.
-grsecurity_build_patch_type: stable2
+# Can be "unofficial", "stable", or "stable2". Defaults to "unofficial" because
+# "stable2" because "stable" require subscription access.
+grsecurity_build_patch_type: unofficial
 
 # The default "manual" strategy will prep a machine for compilation,
 # but stop short of configuring and compiling. You can instead choose
@@ -55,7 +55,6 @@ grsecurity_build_revision: "{{ linux_kernel_version }}-grsec-{{ grsecurity_versi
 # variables, such as PATH munging for ccache and setting workers to number of VCPUs.
 grsecurity_build_compile_command:
   fakeroot make-kpkg
-  --revision {{ grsecurity_build_revision }}
   {% if grsecurity_build_include_ubuntu_overlay == true %} --overlay-dir=../ubuntu-package {% endif %}
   --initrd {{ grsecurity_build_kpkg_targets|join(' ') }}
 
@@ -66,6 +65,10 @@ grsecurity_build_fetch_packages: true
 # Where fetched packages should be placed. Defaults to adjacent to playbook.
 grsecurity_build_fetch_packages_dest: "./"
 
+# Intentionally fuzzy fileglob to support fetching back multiple
+# build targets, e.g. image, headers, src, manual, etc.
+grsecurity_build_fetch_patterns:
+  - linux-*grsec*.deb
 # Credentials for downloading the grsecurity "stable" pages. Requires subscription.
 # The "test" patches do not require authentication or a subscription.
 grsecurity_build_download_username: "{{ lookup('env', 'GRSECURITY_USERNAME')|default('') }}"
