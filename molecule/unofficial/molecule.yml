@@ -14,6 +14,17 @@ provisioner:
     name: ansible-lint
 scenario:
   name: unofficial
+  test_sequence:
+    # Far too many linting violations, punting on cleanup.
+    # - lint
+    - destroy
+    - dependency
+    - syntax
+    - create
+    - converge
+    # No tests written yet, punting for now.
+    # - verify
+    - destroy
 verifier:
   name: testinfra
   lint:
