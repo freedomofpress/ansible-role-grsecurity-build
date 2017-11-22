@@ -65,6 +65,10 @@ grsecurity_build_fetch_packages: true
 # Where fetched packages should be placed. Defaults to adjacent to playbook.
 grsecurity_build_fetch_packages_dest: "./"
 
+# Intentionally fuzzy fileglob to support fetching back multiple
+# build targets, e.g. image, headers, src, manual, etc.
+grsecurity_build_fetch_patterns:
+  - linux-*grsec*.deb
 # Credentials for downloading the grsecurity "stable" pages. Requires subscription.
 # The "test" patches do not require authentication or a subscription.
 grsecurity_build_download_username: "{{ lookup('env', 'GRSECURITY_USERNAME')|default('') }}"
