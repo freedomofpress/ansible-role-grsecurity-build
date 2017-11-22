@@ -1,12 +1,25 @@
 ---
+- name: Ensure GPG keys have full fingerprints.
+  assert:
+    that:
+      - "'fingerprint' in item.keys()"
+      - item.fingerprint|length == 40
+    fail_msg: >-
+      GPG public key fingerprints music be long-form 40 characters
+  with_items: "{{ grsecurity_build_gpg_keys }}"
+
 - name: Import GPG keys for building Linux kernel.
-  command: gpg --keyserver {{ grsecurity_build_gpg_keyserver }} --recv-keys "{{ item.fingerprint }}"
+  shell: gpg --import - <<< "{{ lookup('file', item.fingerprint+'.pub')|escape }}"
+  args:
+    executable: /bin/bash # required for string redirection
   register: gpg_import_linux_pubkeys_result
   changed_when: "'imported: 1' in gpg_import_linux_pubkeys_result.stderr"
   with_items: "{{ grsecurity_build_gpg_keys }}"
 
-- name: Import GPG keys for building Linux kernel.
-  command: gpg --keyserver {{ grsecurity_build_gpg_keyserver }} --recv-keys "{{ item.fingerprint }}"
+- name: Import GPG keys for building Linux kernel with Ubuntu overlay.
+  shell: gpg --import - <<< "{{ lookup('file', item.fingerprint+'.pub')|escape }}"
+  args:
+    executable: /bin/bash # required for string redirection
   register: gpg_import_ubuntu_pubkeys_result
   changed_when: "'imported: 1' in gpg_import_ubuntu_pubkeys_result.stderr"
   with_items: "{{ grsecurity_build_gpg_keys_ubuntu }}"
