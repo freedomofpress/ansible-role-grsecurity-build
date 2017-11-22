@@ -16,16 +16,6 @@
           - grsecurity_build_download_password != ''
   roles:
     - role: ansible-role-grsecurity-build
-      # Use 3.x stable kernel series for now, since we're running under Trusty.
-      # Future versions of SecureDrop may depend on the 4.x series, in which case
-      # the `stable2` patch type should be used.
       grsecurity_build_patch_type: stable2
       grsecurity_build_strategy: manual
-      grsecurity_build_include_ubuntu_overlay: true
-      # We've been maintaining both -image and -headers packages. Revisit
-      # and consider dropping support for headers and just shipping the image.
-      grsecurity_build_kpkg_targets:
-        - kernel_headers
-        - kernel_image
-        - kernel_source
       tags: kernel
