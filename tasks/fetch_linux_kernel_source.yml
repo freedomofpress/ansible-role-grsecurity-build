@@ -27,11 +27,11 @@
 
 - name: Fetch Linux kernel tarball.
   get_url:
-      url: "{{ linux_tarball_xz_url }}"
-      dest: "{{ grsecurity_build_download_directory }}/{{ linux_tarball_xz_filename }}"
-      sha256sum: "{{ linux_tarball_checksum.stdout }}"
+    url: "{{ linux_tarball_xz_url }}"
+    dest: "{{ grsecurity_build_download_directory }}/{{ linux_tarball_xz_filename }}"
+    sha256sum: "{{ linux_tarball_checksum.stdout }}"
 
 - name: Fetch Linux kernel tarball signature file.
   get_url:
-      url: "{{ linux_tarball_signature_url }}"
-      dest: "{{ grsecurity_build_download_directory }}/"
+    url: "{{ linux_tarball_signature_url }}"
+    dest: "{{ grsecurity_build_download_directory }}/"

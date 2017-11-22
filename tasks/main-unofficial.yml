@@ -15,8 +15,8 @@
     repo: deb http://http.debian.net/debian/ stretch-backports main
     state: present
 
-  # Install packages before fetching dynamic URLs, since python-requests
-  # is required by the URL-fetching Ansible module.
+# Install packages before fetching dynamic URLs, since python-requests
+# is required by the URL-fetching Ansible module.
 - include: packages.yml
   tags: apt
 

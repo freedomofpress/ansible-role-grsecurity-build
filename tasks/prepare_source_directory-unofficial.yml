@@ -49,8 +49,8 @@
   args:
     chdir: "{{ grsecurity_build_linux_source_directory }}"
 
-  # Bail out for interactive compilation. Override interactive mode
-  # by setting `grsecurity_build_strategy`
+# Bail out for interactive compilation. Override interactive mode
+# by setting `grsecurity_build_strategy`
 - name: Advise on next steps for manually compiling kernel.
   debug:
     msg: >
