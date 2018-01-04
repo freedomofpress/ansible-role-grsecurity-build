@@ -8,8 +8,12 @@ driver:
 lint:
   name: yamllint
 platforms:
-  - name: grsecurity-install
-    box: debian/stretch64
+  - name: grsecurity-install-ubuntu-trusty
+    box: bento/ubuntu-14.04
+    instance_raw_config_args:
+      - "vm.synced_folder './', '/vagrant', disabled: true"
+  - name: grsecurity-install-debian-jessie
+    box: debian/jessie64
     instance_raw_config_args:
       - "vm.synced_folder './', '/vagrant', disabled: true"
 provisioner:

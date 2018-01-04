@@ -43,9 +43,9 @@ to discuss how such a change might affect your workflow.
 ## Role variables
 
 ```yaml
-# Can be "stable" or "stable2". Defaults to "stable2" because "stable"
-# applies to the 3.14.79 kernel source, which has been EOL'd.
-grsecurity_build_patch_type: stable2
+# Can be "unofficial", "stable", or "stable2". Defaults to "unofficial" because
+# "stable2" because "stable" require subscription access.
+grsecurity_build_patch_type: unofficial
 
 # The default "manual" strategy will prep a machine for compilation,
 # but stop short of configuring and compiling. You can instead choose
@@ -71,7 +71,8 @@ grsecurity_build_download_directory: "{{ ansible_env.HOME }}/linux"
 grsecurity_build_linux_source_directory: >-
   {{ grsecurity_build_download_directory }}/linux-{{ linux_kernel_version }}
 
-grsecurity_build_gpg_keyserver: hkps.pool.sks-keyservers.net
+# Default keyserver for fetching GPG public keys used for verification.
+grsecurity_build_gpg_keyserver: pgp.mit.edu
 
 # Assumes 64-bit (not reading machine architecture dynamically.)
 grsecurity_build_deb_package: >-
@@ -80,11 +81,6 @@ grsecurity_build_deb_package: >-
 # Using ccache can dramatically speed up subsequent builds of the
 # same kernel source. Disable if you plan to build only once.
 grsecurity_build_use_ccache: true
-
-# Specify targets for make-kpkg, e.g. kernel_image, kernel_headers, or binary.
-# See `man make-kpkg` for details.
-grsecurity_build_kpkg_targets:
-  - kernel_image
 
 # Revision used for providing a unique Version field in the built packages.
 # Sometimes grsecurity patches iterate without the underlying kernel src
@@ -96,11 +92,7 @@ grsecurity_build_revision: "{{ linux_kernel_version }}-grsec-{{ grsecurity_versi
 
 # The command to run to perform the compilation. Does not include environment
 # variables, such as PATH munging for ccache and setting workers to number of VCPUs.
-grsecurity_build_compile_command:
-  fakeroot make-kpkg
-  --revision {{ grsecurity_build_revision }}
-  {% if grsecurity_build_include_ubuntu_overlay == true %} --overlay-dir=../ubuntu-package {% endif %}
-  --initrd {{ grsecurity_build_kpkg_targets|join(' ') }}
+grsecurity_build_compile_command: make deb-pkg
 
 # Whether built .deb files should be fetched back to the Ansible controller.
 # Useful when compiling remotely, but not so much on a local workstation.
@@ -109,10 +101,23 @@ grsecurity_build_fetch_packages: true
 # Where fetched packages should be placed. Defaults to adjacent to playbook.
 grsecurity_build_fetch_packages_dest: "./"
 
+# Intentionally fuzzy fileglob to support fetching back multiple
+# build targets, e.g. image, headers, src, manual, etc.
+grsecurity_build_fetch_patterns:
+  - linux-*grsec*.deb
+  - linux-*grsec*.orig.tar.gz
+
 # Credentials for downloading the grsecurity "stable" pages. Requires subscription.
 # The "test" patches do not require authentication or a subscription.
 grsecurity_build_download_username: "{{ lookup('env', 'GRSECURITY_USERNAME')|default('') }}"
 grsecurity_build_download_password: "{{ lookup('env', 'GRSECURITY_PASSWORD')|default('') }}"
+
+# Filepath to local grsecurity patch file on the Ansible controller, for copying
+# to remote build host. Sidesteps need for authenticated network calls on every
+# run of the role. Assumes the patch file is the latest, since it must match
+# a specific kernel version.
+grsecurity_build_patch_filename: ''
+grsecurity_build_patch_sig_filename: "{{ grsecurity_patch_filename }}.sig"
 
 # List of GPG keys required for building grsecurity-patched kernel.
 grsecurity_build_gpg_keys:

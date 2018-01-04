@@ -38,11 +38,6 @@ grsecurity_build_deb_package: >-
 # same kernel source. Disable if you plan to build only once.
 grsecurity_build_use_ccache: true
 
-# Specify targets for make-kpkg, e.g. kernel_image, kernel_headers, or binary.
-# See `man make-kpkg` for details.
-grsecurity_build_kpkg_targets:
-  - kernel_image
-
 # Revision used for providing a unique Version field in the built packages.
 # Sometimes grsecurity patches iterate without the underlying kernel src
 # changing, so we'll include both linux and grsecurity version information.
@@ -53,10 +48,7 @@ grsecurity_build_revision: "{{ linux_kernel_version }}-grsec-{{ grsecurity_versi
 
 # The command to run to perform the compilation. Does not include environment
 # variables, such as PATH munging for ccache and setting workers to number of VCPUs.
-grsecurity_build_compile_command:
-  fakeroot make-kpkg
-  {% if grsecurity_build_include_ubuntu_overlay == true %} --overlay-dir=../ubuntu-package {% endif %}
-  --initrd {{ grsecurity_build_kpkg_targets|join(' ') }}
+grsecurity_build_compile_command: make deb-pkg
 
 # Whether built .deb files should be fetched back to the Ansible controller.
 # Useful when compiling remotely, but not so much on a local workstation.
@@ -69,6 +61,8 @@ grsecurity_build_fetch_packages_dest: "./"
 # build targets, e.g. image, headers, src, manual, etc.
 grsecurity_build_fetch_patterns:
   - linux-*grsec*.deb
+  - linux-*grsec*.orig.tar.gz
+
 # Credentials for downloading the grsecurity "stable" pages. Requires subscription.
 # The "test" patches do not require authentication or a subscription.
 grsecurity_build_download_username: "{{ lookup('env', 'GRSECURITY_USERNAME')|default('') }}"

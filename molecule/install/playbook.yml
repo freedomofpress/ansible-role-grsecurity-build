@@ -9,13 +9,18 @@
       delegate_to: localhost
       find:
         paths:
-          - "{{ molecule_scenario_directory+'/../grsec-build-container' }}"
+          - "{{ molecule_scenario_directory+'/../' }}"
         patterns:
           - '*-image-*.deb'
+        recurse: yes
       register: grsec_deb_packages_result
+      run_once: yes
 
     - debug: var=grsec_deb_packages_result
 
   roles:
-    - role: ~/freedomofpress/ansible-role-grsecurity-install
+    - role: freedomofpress.grsecurity-install
       grsecurity_install_deb_packages: "{{ grsec_deb_packages_result.files|map(attribute='path')|list }}"
+      # PaX flags support via `paxctl` was only tested under Trusty. The current
+      # logic fails under Debian Stretch.
+      grsecurity_install_set_paxctl_flags: no
