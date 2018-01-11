@@ -1,5 +1,6 @@
 ---
 grsecurity_build_apt_packages:
+  - bc
   - build-essential
   - fakeroot
   - gcc-4.8
