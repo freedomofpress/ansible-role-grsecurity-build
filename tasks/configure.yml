@@ -7,6 +7,20 @@
     src: "{{ grsecurity_build_custom_config if grsecurity_build_custom_config != '' else 'config-'+grsecurity_build_strategy }}"
     dest: "{{ grsecurity_build_linux_source_directory }}/.config"
 
+- name: Load up kernel arguments from provided vars file
+  include_vars:
+    file: "{{ grsecurity_build_custom_config_applydiff }}"
+    name: _grsec_patch_config
+  when: grsecurity_build_custom_config_applydiff != ''
+
+- name: Optionally patch the baseline config
+  lineinfile:
+    line: "{{ item.key }}={{ item.value }}"
+    regexp: "^{{ item.key }}="
+    dest: "{{ grsecurity_build_linux_source_directory }}/.config"
+  with_dict: "{{ _grsec_patch_config|default({}) }}"
+  when: grsecurity_build_custom_config_applydiff != ''
+
 - name: Ensure any new options are updated with defaults.
   command: make olddefconfig
   args:

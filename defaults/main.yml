@@ -95,3 +95,13 @@ grsecurity_build_gpg_keys_ubuntu:
     fingerprint: DB5D7CCAF3994E3395DA4D3EE8675DEECBEECEA3
   - name: Thadeu Lima de Souza Cascardo (Canonical)
     fingerprint: 279357DB6127376E6D1DF1BCAAD56799FBFD0D3E
+
+# Apply additional file of kernel configuration options
+# to be applied to an existing configuration. Format of the file will be
+# yaml with each directive per-line. An example might look like:
+#
+# CONFIG_HYPERVISOR_GUEST: y
+# CONFIG_PARAVIRT: y
+# CONFIG_XEN: y
+# CONFIG_XEN_DOM0: y
+grsecurity_build_custom_config_applydiff: ''
