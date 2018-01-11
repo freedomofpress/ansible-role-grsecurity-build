@@ -19,6 +19,7 @@
   # according to patch type 'test' or 'stable'.
   grsecurity_urls:
     patch_type: "{{ grsecurity_build_patch_type }}"
+  tags: always
 
 - include: gpg_keys.yml
   tags: gpg
