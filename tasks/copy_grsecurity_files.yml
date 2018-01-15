@@ -1,5 +1,4 @@
 ---
-# Not using get_url because it doesn't follow redirects.
 - name: Copy grsecurity patch.
   copy:
     src: "{{ grsecurity_build_patch_filename }}"
