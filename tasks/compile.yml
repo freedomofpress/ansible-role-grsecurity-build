@@ -5,15 +5,19 @@
       Now building via command:
       `{{ grsecurity_build_compile_command }}`
 
+- name: Kernel build env
+  set_fact:
+    _grsec_build_env:
+      CONCURRENCY_LEVEL: "{{ ansible_processor_vcpus }}"
+      # Conditionally enable ccache by prepending the ccache lib directory
+      # to PATH, which will override the system gcc and and g++ binaries.
+      PATH: "{% if grsecurity_build_use_ccache == true %}/usr/lib/ccache:{% endif %}{{ ansible_env.PATH }}"
+
 - name: Build the grsecurity-patched kernel.
   command: "{{ grsecurity_build_compile_command }}"
   args:
     chdir: "{{ grsecurity_build_linux_source_directory }}"
-  environment:
-    CONCURRENCY_LEVEL: "{{ ansible_processor_vcpus }}"
-    # Conditionally enable ccache by prepending the ccache lib directory
-    # to PATH, which will override the system gcc and and g++ binaries.
-    PATH: "{% if grsecurity_build_use_ccache == true %}/usr/lib/ccache:{% endif %}{{ ansible_env.PATH }}"
+  environment: "{{ _grsec_build_env|combine(grsecurity_build_env_vars) }}"
 
 - name: Find newly build kernel packages.
   find:

@@ -105,3 +105,6 @@ grsecurity_build_gpg_keys_ubuntu:
 # CONFIG_XEN: y
 # CONFIG_XEN_DOM0: y
 grsecurity_build_custom_config_applydiff: ''
+
+# Additional env variables to pass to the build process
+grsecurity_build_env_vars: {}
