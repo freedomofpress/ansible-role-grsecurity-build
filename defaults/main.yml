@@ -95,3 +95,24 @@ grsecurity_build_gpg_keys_ubuntu:
     fingerprint: DB5D7CCAF3994E3395DA4D3EE8675DEECBEECEA3
   - name: Thadeu Lima de Souza Cascardo (Canonical)
     fingerprint: 279357DB6127376E6D1DF1BCAAD56799FBFD0D3E
+
+# Apply additional file of kernel configuration options
+# to be applied to an existing configuration. Format of the file will be
+# yaml with each directive per-line. An example might look like:
+#
+# CONFIG_HYPERVISOR_GUEST: y
+# CONFIG_PARAVIRT: y
+# CONFIG_XEN: y
+# CONFIG_XEN_DOM0: y
+grsecurity_build_custom_config_applydiff: ''
+
+
+# Default compile build environmental variables
+grsecurity_build_env_vars:
+      CONCURRENCY_LEVEL: "{{ ansible_processor_vcpus }}"
+      # Conditionally enable ccache by prepending the ccache lib directory
+      # to PATH, which will override the system gcc and and g++ binaries.
+      PATH: "{% if grsecurity_build_use_ccache == true %}/usr/lib/ccache:{% endif %}{{ ansible_env.PATH }}"
+
+# Additional env variables to pass to the build process
+grsecurity_build_env_vars_addtl: {}

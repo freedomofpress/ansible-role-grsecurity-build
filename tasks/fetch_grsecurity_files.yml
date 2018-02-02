@@ -1,19 +1,14 @@
 ---
-# Not using get_url because it doesn't follow redirects.
-- name: Fetch grsecurity patch.
-  command: >-
-    curl
-    --user "{{ grsecurity_build_download_username }}:{{ grsecurity_build_download_password }}"
-    -L "{{ grsecurity_patch_url  }}"
-    -o "{{ grsecurity_build_download_directory }}/{{ grsecurity_patch_filename }}"
-  args:
-    creates: "{{ grsecurity_build_download_directory }}/{{ grsecurity_patch_filename }}"
-
-- name: Fetch grsecurity signature.
-  command: >-
-    curl
-    --user "{{ grsecurity_build_download_username }}:{{ grsecurity_build_download_password }}"
-    -L "{{ grsecurity_signature_url  }}"
-    -o "{{ grsecurity_build_download_directory }}/{{ grsecurity_signature_filename }}"
-  args:
-    creates: "{{ grsecurity_build_download_directory }}/{{ grsecurity_signature_filename }}"
+- name: Fetch grsecurity patch and signature
+  uri:
+    url: "{{ item.url }}"
+    force_basic_auth: yes
+    user: "{{ grsecurity_build_download_username }}"
+    password: "{{ grsecurity_build_download_password }}"
+    dest: "{{ item.dest }}"
+    creates: "{{ item.dest }}"
+  with_items:
+    - url: "{{ grsecurity_patch_url }}"
+      dest: "{{ grsecurity_build_download_directory }}/{{ grsecurity_patch_filename }}"
+    - url: "{{ grsecurity_signature_url  }}"
+      dest: "{{ grsecurity_build_download_directory }}/{{ grsecurity_signature_filename }}"
