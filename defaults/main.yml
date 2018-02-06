@@ -46,9 +46,15 @@ grsecurity_build_use_ccache: true
 # it would be: `4.4.32-grsec-3.1.201611150755`.
 grsecurity_build_revision: "{{ linux_kernel_version }}-grsec-{{ grsecurity_version }}.{{ grsecurity_patch_timestamp }}"
 
+# Number of concurrent workers to spin up; this is piped to the make '-j'
+# option. If you set this variable to blank, the number of jobs running
+# concurrently will be infinite. Default number if based off the number of cores
+# ansible determines you have.
+grsecurity_build_compile_jobs: "{{ ansible_processor_vcpus }}"
+
 # The command to run to perform the compilation. Does not include environment
 # variables, such as PATH munging for ccache and setting workers to number of VCPUs.
-grsecurity_build_compile_command: make deb-pkg
+grsecurity_build_compile_command: "make -j{{grsecurity_build_compile_jobs}} deb-pkg"
 
 # Whether built .deb files should be fetched back to the Ansible controller.
 # Useful when compiling remotely, but not so much on a local workstation.
@@ -109,7 +115,6 @@ grsecurity_build_custom_config_applydiff: ''
 
 # Default compile build environmental variables
 grsecurity_build_env_vars:
-      CONCURRENCY_LEVEL: "{{ ansible_processor_vcpus }}"
       # Conditionally enable ccache by prepending the ccache lib directory
       # to PATH, which will override the system gcc and and g++ binaries.
       PATH: "{% if grsecurity_build_use_ccache == true %}/usr/lib/ccache:{% endif %}{{ ansible_env.PATH }}"
