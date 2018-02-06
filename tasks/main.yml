@@ -1,4 +1,6 @@
 ---
+- include: become_check.yml
+
 - include: main-stable.yml
   when: grsecurity_build_patch_type != 'unofficial'
 
