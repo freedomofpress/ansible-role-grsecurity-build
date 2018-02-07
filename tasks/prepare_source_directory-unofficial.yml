@@ -14,29 +14,15 @@
     path: "{{ grsecurity_build_linux_source_directory }}"
     state: absent
 
-# Since these are .xz archives, we can't provide a dest argument trivially,
-# so we'll first copy them into a user-writable directory prior to extraction.
-- name: Copy Linux tarball and patch archive to working directory.
-  copy:
-    src: "{{ item }}"
-    dest: "{{ grsecurity_build_download_directory }}/{{ item }}"
-    remote_src: "yes"
-  with_items:
-    - /usr/src/linux-grsec-source-4.9.tar.xz
-    - /usr/src/linux-patch-4.9-grsec.patch.xz
-
 - name: Extract Linux tarball
   unarchive:
-    src: "{{ grsecurity_build_download_directory }}/linux-grsec-source-4.9.tar.xz"
-    dest: "{{ grsecurity_build_download_directory }}/linux-grsec-source-4.9"
+    src: /usr/src/linux-grsec-source-4.9.tar.xz
+    dest: "{{ grsecurity_build_download_directory }}/"
     remote_src: "yes"
 
 - name: Extract grsecurity patch(.xz -> patch).
-  # Hardcoded src pathname because filename is predictable and static.
-  unarchive:
-    src: "{{ grsecurity_build_download_directory }}/linux-patch-4.9-grsec.patch.xz"
-    dest: "{{ grsecurity_build_download_directory }}/linux-patch-4.9-grsec.patch"
-    remote_src: "yes"
+  shell: unxz -c /usr/src/linux-patch-4.9-grsec.patch.xz > {{ grsecurity_build_download_directory }}/linux-patch-4.9-grsec.patch
+  creates: "{{ grsecurity_build_download_directory }}/linux-patch-4.9-grsec.patch"
 
 - name: Apply grsecurity patch.
   patch:
