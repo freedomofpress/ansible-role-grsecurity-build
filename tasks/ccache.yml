@@ -9,6 +9,8 @@
     state: latest
     update_cache: true
     cache_valid_time: 3600
+  tags:
+    - skip_ansible_lint
   become: yes
 
 - name: Read current ccache cache size.

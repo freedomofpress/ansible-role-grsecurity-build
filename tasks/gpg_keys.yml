@@ -11,7 +11,7 @@
 - name: Import GPG keys for building Linux kernel.
   shell: gpg --import - <<< "{{ lookup('file', item.fingerprint+'.pub')|escape }}"
   args:
-    executable: /bin/bash # required for string redirection
+    executable: /bin/bash  # required for string redirection
   register: gpg_import_linux_pubkeys_result
   changed_when: "'imported: 1' in gpg_import_linux_pubkeys_result.stderr"
   with_items: "{{ grsecurity_build_gpg_keys }}"
@@ -19,7 +19,7 @@
 - name: Import GPG keys for building Linux kernel with Ubuntu overlay.
   shell: gpg --import - <<< "{{ lookup('file', item.fingerprint+'.pub')|escape }}"
   args:
-    executable: /bin/bash # required for string redirection
+    executable: /bin/bash  # required for string redirection
   register: gpg_import_ubuntu_pubkeys_result
   changed_when: "'imported: 1' in gpg_import_ubuntu_pubkeys_result.stderr"
   with_items: "{{ grsecurity_build_gpg_keys_ubuntu }}"

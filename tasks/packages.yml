@@ -28,3 +28,7 @@
     - "{{ grsecurity_build_apt_packages }}"
     - "{{ ['linux-grsec-source-4.9'] if grsecurity_build_patch_type == 'unofficial' else [] }}"
   become: yes
+  # We are using latest (against the linter's wishes) to make sure latest of
+  # ccompile is installed? Does this still make sense? Sure why not. The
+  # cache_valid_time mitigates problems a bit.
+  tags: skip_ansible_lint

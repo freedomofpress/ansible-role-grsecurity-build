@@ -36,13 +36,19 @@
     chdir: "{{ grsecurity_build_download_directory }}/ubuntu-trusty"
   register: ubuntu_overlay_tag_result
   changed_when: false
-  tags: ubuntu_overlay
   when: grsecurity_build_include_ubuntu_overlay == true
+  # ansible linter wants us to use git module, dont feel like debugging
+  # this at the moment
+  tags:
+    - skip_ansible_lint
+    - ubuntu_overlay
 
 - name: Verify Ubuntu overlay signature.
   command: git tag --verify {{ ubuntu_overlay_tag_result.stdout }}
   args:
     chdir: "{{ grsecurity_build_download_directory }}/ubuntu-trusty"
   changed_when: false
-  tags: ubuntu_overlay
   when: grsecurity_build_include_ubuntu_overlay == true
+  tags:
+    - skip_ansible_lint
+    - ubuntu_overlay

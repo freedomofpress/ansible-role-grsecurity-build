@@ -25,6 +25,7 @@
   command: make olddefconfig
   args:
     chdir: "{{ grsecurity_build_linux_source_directory }}"
+  tags: skip_ansible_lint
 
 - name: Check that grsecurity options are enabled.
   lineinfile:
@@ -40,3 +41,5 @@
        Aborting compilation. Try running `make menuconfig` and manually
        enabling the grsecurity options.
   when: grsecurity_settings_check_result.changed
+  # No point to use a hanlder here we would need to flush handler right away
+  tags: skip_ansible_lint
