@@ -7,28 +7,28 @@
 
 # Install packages before fetching dynamic URLs, since python-requests
 # is required by the URL-fetching Ansible module.
-- include: packages.yml
+- import_tasks: packages.yml
   tags: apt
 
-- include: gpg_keys.yml
+- import_tasks: gpg_keys.yml
   tags: gpg
 
-- include: fetch_ubuntu_overlay.yml
+- import_tasks: fetch_ubuntu_overlay.yml
   tags: ubuntu_overlay
   when: grsecurity_build_include_ubuntu_overlay == true
 
-- include: ccache.yml
+- import_tasks: ccache.yml
   tags: ccache
   when: grsecurity_build_use_ccache == true
 
-- include: prepare_source_directory-unofficial.yml
+- import_tasks: prepare_source_directory-unofficial.yml
 
-- include: configure.yml
+- import_tasks: configure.yml
   tags: configure
   when: grsecurity_build_strategy != "manual" or
         grsecurity_build_custom_config != ''
 
-- include: compile.yml
+- import_tasks: compile.yml
   tags: compile
   when: grsecurity_build_strategy != "manual" or
         grsecurity_build_custom_config != ''
