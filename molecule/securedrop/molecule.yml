@@ -19,6 +19,14 @@ provisioner:
     name: ansible-lint
 scenario:
   name: securedrop
+  test_sequence:
+    - lint
+    - destroy
+    - create
+    - converge
+    # Disable idempotence check because build always reports changed
+    # - idempotence
+    - verify
 verifier:
   name: testinfra
   lint:

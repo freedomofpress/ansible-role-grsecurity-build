@@ -17,5 +17,5 @@
   roles:
     - role: ansible-role-grsecurity-build
       grsecurity_build_patch_type: stable2
-      grsecurity_build_strategy: manual
+      grsecurity_build_custom_config: config-securedrop-4.4
       tags: kernel
