@@ -1,6 +1,7 @@
 ---
-# Can be "unofficial", "stable", or "stable2". Defaults to "unofficial" because
-# "stable2" because "stable" require subscription access.
+# Can be "unofficial", "minipli", "stable", or "stable2".
+# Defaults to "unofficial-debian" because "stable2"/ "stable"
+# require subscription access.
 grsecurity_build_patch_type: unofficial
 
 # The default "manual" strategy will prep a machine for compilation,
@@ -89,6 +90,10 @@ grsecurity_build_gpg_keys:
     fingerprint: B8868C80BA62A1FFFAF5FDA9632D3A06589DA6B1
   - name: Bradley Spengler GPG key (grsecurity maintainer key)
     fingerprint: DE9452CE46F42094907F108B44D1C0F82525FE49
+
+grsecurity_buld_gpg_keys_minipli:
+  - name: Mathias Krause (Grsecurity community contributor)
+    fingerprint: 76298B5BB60EDAD21B362E667585399992435BA4
 
 # List of GPG keys required for building grsecurity-patched kernel with the ubuntu-overlay.
 # Only imported if the ubuntu-overlay is included via the `grsecurity_build_include_ubuntu_overlay` var.
