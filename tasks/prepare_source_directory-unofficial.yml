@@ -7,12 +7,16 @@
 - name: Set hardcoded source directory as fact.
   set_fact:
     grsecurity_build_linux_source_directory: "{{ grsecurity_build_download_directory }}/linux-grsec-source-4.9"
+    _grsec_patchname: linux-patch-4.9-grsec.patch
 
-- name: Clean source directory prior to extraction.
+- name: Clean source directory and patch prior to extraction.
   file:
     # Hardcoded pathname because dirname is predictable and static.
-    path: "{{ grsecurity_build_linux_source_directory }}"
+    path: "{{ item }}"
     state: absent
+  with_items:
+    - "{{ grsecurity_build_linux_source_directory }}"
+    - "{{ grsecurity_build_download_directory }}/{{ _grsec_patchname }}"
 
 - name: Extract Linux tarball
   unarchive:
@@ -21,14 +25,15 @@
     remote_src: "yes"
 
 - name: Extract grsecurity patch(.xz -> patch).
-  shell: unxz -c /usr/src/linux-patch-4.9-grsec.patch.xz > {{ grsecurity_build_download_directory }}/linux-patch-4.9-grsec.patch
-  creates: "{{ grsecurity_build_download_directory }}/linux-patch-4.9-grsec.patch"
+  shell: unxz -c /usr/src/{{ _grsec_patchname }}.xz > {{ grsecurity_build_download_directory }}/{{ _grsec_patchname }}
+  args:
+    creates: "{{ grsecurity_build_download_directory }}/{{ _grsec_patchname }}"
 
 - name: Apply grsecurity patch.
   patch:
     remote_src: true
     # Hardcoded src pathname because filename is predictable and static.
-    src: "{{ grsecurity_build_download_directory }}/linux-patch-4.9-grsec.patch"
+    src: "{{ grsecurity_build_download_directory }}/{{ _grsec_patchname }}"
     basedir: "{{ grsecurity_build_linux_source_directory }}"
     strip: 1
 
