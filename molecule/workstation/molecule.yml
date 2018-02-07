@@ -1,0 +1,31 @@
+---
+dependency:
+  name: galaxy
+driver:
+  name: docker
+lint:
+  name: yamllint
+platforms:
+  - name: grsecurity-build-stable3-stretch
+    image: debian:stretch
+provisioner:
+  name: ansible
+  lint:
+    name: ansible-lint
+scenario:
+  name: workstation
+  test_sequence:
+    # Far too many linting violations, punting on cleanup.
+    # - lint
+    - destroy
+    - dependency
+    - syntax
+    - create
+    - converge
+    # No tests written yet, punting for now.
+    # - verify
+    - destroy
+verifier:
+  name: testinfra
+  lint:
+    name: flake8

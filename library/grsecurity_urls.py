@@ -17,7 +17,7 @@ options:
         See https://grsecurity.net/download.php for more info.
 
     default: "stable2"
-    choices: [ "stable", "stable2", "minipli" ]
+    choices: [ "stable", "stable2", "stable3", "minipli" ]
     required: no
 notes:
   - The Linux kernel version is dependent on the grsecurity patch type.
@@ -26,6 +26,7 @@ EXAMPLES = '''
 - action: grsecurity_urls
 - action: grsecurity_urls patch_type=stable
 - action: grsecurity_urls patch_type=stable2
+- action: grsecurity_urls patch_type=stable3
 - action: grsecurity_urls patch_type=minipli
 '''
 
@@ -41,9 +42,12 @@ except ImportError:
 
 
 GRSECURITY_BASE_URL = 'https://grsecurity.net/'
+# The "stable" patches use kernel verison 3.14.x
 GRSECURITY_LATEST_STABLE_PATCH_URL = 'https://grsecurity.net/latest_stable_patch'
-# The "stable2" patches use kernel version 4.x
+# The "stable2" patches use kernel version 4.4.x
 GRSECURITY_LATEST_STABLE2_PATCH_URL = 'https://grsecurity.net/latest_stable2_patch'
+# The "stable3" patches use kernel version 4.14.x
+GRSECURITY_LATEST_STABLE3_PATCH_URL = 'https://grsecurity.net/latest_stable3_patch'
 GRSECURITY_STABLE_URL_PREFIX = 'https://grsecurity.net/download-restrict/download-redirect.php?file='
 GRSECURITY_FILENAME_REGEX = re.compile(r'''
                                         grsecurity-
@@ -134,6 +138,8 @@ class GrsecurityURLs():
         url = ''
         if self.patch_type == "stable":
             url = GRSECURITY_LATEST_STABLE_PATCH_URL
+        elif self.patch_type == "stable3":
+            url = GRSECURITY_LATEST_STABLE3_PATCH_URL
         else:
             url = GRSECURITY_LATEST_STABLE2_PATCH_URL
         return url
@@ -199,7 +205,7 @@ class MinipliURLS():
 def main():
     module = AnsibleModule(
         argument_spec=dict(
-            patch_type=dict(default="stable2", choices=["stable", "stable2", "minipli"]),
+            patch_type=dict(default="stable2", choices=["stable", "stable2", "stable3", "minipli"]),
         ),
         supports_check_mode=False
     )
