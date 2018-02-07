@@ -1,7 +1,7 @@
 ---
 version: 2
 jobs:
-  build:
+  build-minipli:
     docker:
       - image: quay.io/freedomofpress/circleci-docker:latest
     working_directory: ~/ansible-role-grsecurity-build
@@ -16,10 +16,28 @@ jobs:
 
       - run:
           name: Run Molecule linters.
-          command: molecule test -s ci
+          command: molecule test -s ci-unofficial
+
+  build-unofficial:
+    docker:
+      - image: quay.io/freedomofpress/circleci-docker:latest
+    working_directory: ~/ansible-role-grsecurity-build
+
+    steps:
+      - checkout
+      - setup_remote_docker
+
+      - run:
+          name: Install pip dependencies
+          command: pip install -r requirements.txt
+
+      - run:
+          name: Run Molecule linters.
+          command: molecule test -s ci-minipli
 
 workflows:
   version: 2
   grsec_kernel_role:
     jobs:
-      - build
+      - build-unofficial
+      - build-minipli
