@@ -1,0 +1,15 @@
+---
+- name: Converge
+  hosts: all
+  roles:
+    # Tests unofficial
+    - role: ansible-role-grsecurity-build
+
+    # Tests minipli
+    - role: ansible-role-grsecurity-build
+      grsecurity_build_patch_type: minipli
+  vars:
+    grsecurity_build_strategy: ci-tinyconfig
+    grsecurity_build_compile_command: "make -j{{grsecurity_build_compile_jobs}} bindeb-pkg"
+    grsecurity_build_env_vars_addtl:
+      LOCALVERSION: "-{{ grsecurity_patch_timestamp }}"

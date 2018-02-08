@@ -11,7 +11,7 @@
   tasks:
     - name: Build an Ansible compatible image
       docker_image:
-        path: "{{ molecule_scenario_directory }}"
+        path: "{{ molecule_scenario_directory }}/../ci-skel/"
         name: "fpf.local/grsec-builder-{{ (item.image).split(':')[0] }}"
         force: "{{ item.force | default(True) }}"
         tag: "{{ (item.image).split(':')[1] }}"

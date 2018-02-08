@@ -17,7 +17,7 @@ options:
         See https://grsecurity.net/download.php for more info.
 
     default: "stable2"
-    choices: [ "stable", "stable2" ]
+    choices: [ "stable", "stable2", "minipli" ]
     required: no
 notes:
   - The Linux kernel version is dependent on the grsecurity patch type.
@@ -26,6 +26,7 @@ EXAMPLES = '''
 - action: grsecurity_urls
 - action: grsecurity_urls patch_type=stable
 - action: grsecurity_urls patch_type=stable2
+- action: grsecurity_urls patch_type=minipli
 '''
 
 from StringIO import StringIO
@@ -51,6 +52,12 @@ GRSECURITY_FILENAME_REGEX = re.compile(r'''
                                         (?P<grsecurity_patch_timestamp>\d{12})\.patch
                                         ''', re.VERBOSE)
 LINUX_KERNEL_BASE_URL = "https://www.kernel.org/pub/linux/kernel/"
+MINIPLI_GRSEC_RELEASE_URL = "https://api.github.com/repos/minipli/linux-unofficial_grsec/releases"
+MINIPLI_FILENAME_REGEX = re.compile(r'''
+                                        v(?P<linux_kernel_version>\d+\.\d+\.\d+)
+                                        -unofficial_grsec-
+                                        (?P<grsecurity_patch_timestamp>\d{12})
+                                        ''', re.VERBOSE)
 
 
 class LinuxKernelURLs():
@@ -151,11 +158,48 @@ class GrsecurityURLs():
                                config['grsecurity_patch_filename']).groupdict())
         return config
 
+class MinipliURLS():
+
+    def __init__(self, *args, **kwargs):
+        for k, v in kwargs.items():
+            setattr(self, k, v)
+
+        self.patch_name_url = MINIPLI_GRSEC_RELEASE_URL
+        self.ansible_facts = self.parse_grsecurity_latest_patch()
+
+        if not self.ansible_facts:
+            msg = """Could not parse grsecurity RSS feed. Inspect manually.
+                  {}""".format(self.rss_feed_url)
+            raise Exception(msg)
+
+
+    def parse_grsecurity_latest_patch(self):
+        """
+        Get latest patch from github release page
+        """
+        r = requests.get(self.patch_name_url)
+        latest_releases = r.json()[0]['assets']
+
+        release_dict = {}
+        for index in range(0,2):
+            dl_url = latest_releases[index]['browser_download_url']
+            release_dict[dl_url.split('.')[-1]] = dl_url
+
+        config = dict()
+        config['grsecurity_patch_filename'] = release_dict['diff'].split('/')[-1]
+        config['grsecurity_patch_url'] = release_dict['diff']
+
+        config['grsecurity_signature_filename'] = config['grsecurity_patch_filename'] + '.sig'
+        config['grsecurity_signature_url'] = config['grsecurity_patch_url'] + '.sig'
+        config.update(re.match(MINIPLI_FILENAME_REGEX,
+                               config['grsecurity_patch_filename']).groupdict())
+        return config
+
 
 def main():
     module = AnsibleModule(
         argument_spec=dict(
-            patch_type=dict(default="stable2", choices=["stable", "stable2"]),
+            patch_type=dict(default="stable2", choices=["stable", "stable2", "minipli"]),
         ),
         supports_check_mode=False
     )
@@ -163,7 +207,10 @@ def main():
       module.fail_json(msg='requests required for this module')
 
     patch_type = module.params['patch_type']
-    grsec_config = GrsecurityURLs(patch_type=patch_type)
+    if patch_type == "minipli":
+        grsec_config = MinipliURLS()
+    else:
+        grsec_config = GrsecurityURLs(patch_type=patch_type)
     linux_config = LinuxKernelURLs(
             linux_kernel_version=grsec_config.ansible_facts['linux_kernel_version']
             )

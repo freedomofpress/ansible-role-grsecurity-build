@@ -2,7 +2,10 @@
 - name: Converge
   hosts: all
   roles:
+    # Tests unofficial
     - role: ansible-role-grsecurity-build
   vars:
     grsecurity_build_strategy: ci-tinyconfig
     grsecurity_build_compile_command: "make -j{{grsecurity_build_compile_jobs}} bindeb-pkg"
+    grsecurity_build_env_vars_addtl:
+      LOCALVERSION: "-{{ ansible_date_time.epoch }}"
