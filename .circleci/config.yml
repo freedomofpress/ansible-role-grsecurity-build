@@ -1,7 +1,7 @@
 ---
 version: 2
 jobs:
-  build-minipli:
+  build-unofficial:
     docker:
       - image: quay.io/freedomofpress/circleci-docker:latest
     working_directory: ~/ansible-role-grsecurity-build
@@ -18,7 +18,7 @@ jobs:
           name: Run Molecule linters.
           command: molecule test -s ci-unofficial
 
-  build-unofficial:
+  build-minipli:
     docker:
       - image: quay.io/freedomofpress/circleci-docker:latest
     working_directory: ~/ansible-role-grsecurity-build
