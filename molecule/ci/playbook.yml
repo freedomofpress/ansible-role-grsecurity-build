@@ -1,0 +1,8 @@
+---
+- name: Converge
+  hosts: all
+  roles:
+    - role: ansible-role-grsecurity-build
+  vars:
+    grsecurity_build_strategy: ci-tinyconfig
+    grsecurity_build_compile_command: "make -j{{grsecurity_build_compile_jobs}} bindeb-pkg"

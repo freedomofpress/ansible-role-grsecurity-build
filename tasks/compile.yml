@@ -10,6 +10,8 @@
   args:
     chdir: "{{ grsecurity_build_linux_source_directory }}"
   environment: "{{ grsecurity_build_env_vars|combine(grsecurity_build_env_vars_addtl) }}"
+  # This is always going to change due to the nature of the role
+  tags: skip_ansible_lint
 
 - name: Find newly build kernel packages.
   find:

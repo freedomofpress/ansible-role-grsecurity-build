@@ -3,3 +3,8 @@
 # Ignore any local grsecurity patches (and associated GPG signatures)
 *.patch
 *.patch.sig
+
+# Do not commit any debian packages
+*.deb
+*.tar.gz
+*.pyc

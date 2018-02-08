@@ -3,7 +3,7 @@
   become: yes
   apt:
     name: git-core
-    state: latest
+    state: present
     update_cache: true
     cache_valid_time: 3600
 
@@ -19,6 +19,7 @@
     # other option is scanning kernel.ubuntu.com
     # and accepting whatever is returned
     accept_hostkey: yes
+    version: master
   tags:
     - git
 
@@ -36,8 +37,12 @@
     - postrm
     - preinst
     - prerm
+  # This should use the copy module but CI doesnt run this scenario yet so skip
+  # ansible linting for now
+  tags: skip_ansible_lint
 
 - name: copy ubuntu overlay header files
-  command: >
-     cp {{ grsecurity_build_download_directory }}/ubuntu-trusty/debian/control-scripts/headers-postinst \
-        {{ grsecurity_build_download_directory }}/ubuntu-package/pkg/headers/
+  copy:
+    src: "{{ grsecurity_build_download_directory }}/ubuntu-trusty/debian/control-scripts/headers-postinst"
+    dest: "{{ grsecurity_build_download_directory }}/ubuntu-package/pkg/headers/headers-postinst"
+    remote_src: "yes"

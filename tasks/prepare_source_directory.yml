@@ -18,9 +18,9 @@
     strip: 1
 
 - name: Clean kernel source tree.
-  command: make clean
-  args:
+  make:
     chdir: "{{ grsecurity_build_linux_source_directory }}"
+    target: clean
 
 # Bail out for interactive compilation. Override interactive mode
 # by setting `grsecurity_build_strategy`

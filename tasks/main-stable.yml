@@ -1,7 +1,7 @@
 ---
-  # Install packages before fetching dynamic URLs, since python-requests
-  # is required by the URL-fetching Ansible module.
-- include: packages.yml
+# Install packages before fetching dynamic URLs, since python-requests
+# is required by the URL-fetching Ansible module.
+- import_tasks: packages.yml
   tags: apt
 
 - name: Include grsecurity download URLs.
@@ -11,38 +11,38 @@
     patch_type: "{{ grsecurity_build_patch_type }}"
   tags: always
 
-- include: gpg_keys.yml
+- import_tasks: gpg_keys.yml
   tags: gpg
 
-- include: fetch_linux_kernel_source.yml
+- import_tasks: fetch_linux_kernel_source.yml
 
-- include: fetch_grsecurity_files.yml
+- import_tasks: fetch_grsecurity_files.yml
   when: grsecurity_build_patch_filename is not defined or
         not grsecurity_build_patch_filename
 
-- include: copy_grsecurity_files.yml
+- import_tasks: copy_grsecurity_files.yml
   when: grsecurity_build_patch_filename is defined and
         grsecurity_build_patch_filename != ''
 
-- include: fetch_ubuntu_overlay.yml
+- import_tasks: fetch_ubuntu_overlay.yml
   tags: ubuntu_overlay
   when: grsecurity_build_include_ubuntu_overlay == true
 
-- include: verify.yml
+- import_tasks: verify.yml
 
-- include: ccache.yml
+- import_tasks: ccache.yml
   tags: ccache
   when: grsecurity_build_use_ccache == true
 
-- include: prepare_source_directory.yml
+- import_tasks: prepare_source_directory.yml
   tags: prepare
 
-- include: configure.yml
+- import_tasks: configure.yml
   tags: configure
   when: grsecurity_build_strategy != "manual" or
         grsecurity_build_custom_config != ''
 
-- include: compile.yml
+- import_tasks: compile.yml
   tags: compile
   when: grsecurity_build_strategy != "manual" or
         grsecurity_build_custom_config != ''

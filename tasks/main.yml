@@ -1,8 +1,8 @@
 ---
-- include: become_check.yml
+- import_tasks: become_check.yml
 
-- include: main-stable.yml
+- import_tasks: main-stable.yml
   when: grsecurity_build_patch_type != 'unofficial'
 
-- include: main-unofficial.yml
+- import_tasks: main-unofficial.yml
   when: grsecurity_build_patch_type == 'unofficial'
