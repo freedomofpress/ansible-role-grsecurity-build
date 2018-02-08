@@ -3,8 +3,8 @@
   uri:
     url: "{{ item.url }}"
     force_basic_auth: yes
-    user: "{{ grsecurity_build_download_username }}"
-    password: "{{ grsecurity_build_download_password }}"
+    user: "{{ grsecurity_build_download_username if grsecurity_build_patch_type.startswith('stable') else omit }}"
+    password: "{{ grsecurity_build_download_password if grsecurity_build_patch_type.startswith('stable') else omit }}"
     dest: "{{ item.dest }}"
     creates: "{{ item.dest }}"
   with_items:
