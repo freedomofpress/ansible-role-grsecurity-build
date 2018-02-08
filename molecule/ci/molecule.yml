@@ -6,7 +6,7 @@ driver:
 lint:
   name: yamllint
 platforms:
-  - name: grsec_build_trusty
+  - name: grsec_build_jessie
     image: debian:jessie
 provisioner:
   name: ansible
