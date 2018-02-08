@@ -1,0 +1,26 @@
+---
+dependency:
+  name: galaxy
+driver:
+  name: docker
+lint:
+  name: yamllint
+platforms:
+  - name: grsec_build_jessie
+    image: debian:jessie
+provisioner:
+  name: ansible
+  lint:
+    name: ansible-lint
+scenario:
+  name: ci-official-stable3
+  test_sequence:
+    - lint
+    - destroy
+    - create
+    - converge
+    - destroy
+verifier:
+  name: testinfra
+  lint:
+    name: flake8
