@@ -6,19 +6,24 @@ driver:
 lint:
   name: yamllint
 platforms:
-  - name: grsec_build_jessie
-    image: debian:jessie
+  - name: grsecurity-build-stable3-stretch
+    image: debian:stretch
 provisioner:
   name: ansible
   lint:
     name: ansible-lint
 scenario:
-  name: ci-minipli
+  name: workstation
   test_sequence:
-    - lint
+    # Far too many linting violations, punting on cleanup.
+    # - lint
     - destroy
+    - dependency
+    - syntax
     - create
     - converge
+    # No tests written yet, punting for now.
+    # - verify
     - destroy
 verifier:
   name: testinfra

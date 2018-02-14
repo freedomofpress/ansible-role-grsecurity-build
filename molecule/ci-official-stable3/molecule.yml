@@ -13,7 +13,7 @@ provisioner:
   lint:
     name: ansible-lint
 scenario:
-  name: ci-minipli
+  name: ci-official-stable3
   test_sequence:
     - lint
     - destroy
