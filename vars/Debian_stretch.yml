@@ -9,3 +9,4 @@ grsecurity_build_apt_packages:
   - libncurses5-dev
   - make
   - python-requests
+  - libssl-dev
