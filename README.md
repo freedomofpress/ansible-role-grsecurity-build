@@ -92,7 +92,7 @@ grsecurity_build_revision: "{{ linux_kernel_version }}-grsec-{{ grsecurity_versi
 
 # The command to run to perform the compilation. Does not include environment
 # variables, such as PATH munging for ccache and setting workers to number of VCPUs.
-grsecurity_build_compile_command: make deb-pkg
+grsecurity_build_compile_command: fakeroot make deb-pkg
 
 # Whether built .deb files should be fetched back to the Ansible controller.
 # Useful when compiling remotely, but not so much on a local workstation.
