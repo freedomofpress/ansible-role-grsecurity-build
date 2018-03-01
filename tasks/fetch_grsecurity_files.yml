@@ -7,8 +7,13 @@
     password: "{{ grsecurity_build_download_password if grsecurity_build_patch_type.startswith('stable') else omit }}"
     dest: "{{ item.dest }}"
     creates: "{{ item.dest }}"
+    status_code: 200
   with_items:
     - url: "{{ grsecurity_patch_url }}"
       dest: "{{ grsecurity_build_download_directory }}/{{ grsecurity_patch_filename }}"
     - url: "{{ grsecurity_signature_url  }}"
       dest: "{{ grsecurity_build_download_directory }}/{{ grsecurity_signature_filename }}"
+  register: _fetch_grsec_results
+  delay: 15
+  retries: 5
+  until: _fetch_grsec_results.failed is not defined
