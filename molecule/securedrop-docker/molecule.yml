@@ -1,0 +1,31 @@
+---
+dependency:
+  name: galaxy
+driver:
+  name: docker
+lint:
+  name: yamllint
+platforms:
+  - name: grsecurity-build-securedrop-trusty
+    image: ubuntu:xenial
+provisioner:
+  name: ansible
+  lint:
+    name: ansible-lint
+scenario:
+  name: securedrop-docker
+  test_sequence:
+    # Far too many linting violations, punting on cleanup.
+    # - lint
+    - destroy
+    - dependency
+    - syntax
+    - create
+    - converge
+    # No tests written yet, punting for now.
+    # - verify
+    - destroy
+verifier:
+  name: testinfra
+  lint:
+    name: flake8
