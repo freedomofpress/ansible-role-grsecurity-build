@@ -9,6 +9,16 @@
     molecule_ephemeral_directory: "{{ lookup('env', 'MOLECULE_EPHEMERAL_DIRECTORY') }}"
     molecule_scenario_directory: "{{ lookup('env', 'MOLECULE_SCENARIO_DIRECTORY') }}"
     molecule_yml: "{{ lookup('file', molecule_file) | molecule_from_yaml }}"
+  pre_tasks:
+    - name: Inspect kernel configuration for presence of Retpoline setting
+      shell: "grep 'CONFIG_RETPOLINE=y' /boot/config-$(uname -r)"
+      register: retpoline_config
+
+    - name: Fetch running kernel version
+      assert:
+        that:
+          - retpoline_config.rc == 0
+        msg: "A retpoline-enabled kernel must be used for full Spectre v2 mitigations"
   tasks:
     - name: Create Dockerfiles from image names
       template:
