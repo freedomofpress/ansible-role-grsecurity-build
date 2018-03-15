@@ -1,0 +1,13 @@
+---
+grsecurity_build_apt_packages:
+  - bc
+  - build-essential
+  - fakeroot
+  - g++-5
+  - gcc-5
+  - gcc-5-plugin-dev
+  - kernel-package
+  - libncurses5-dev
+  - libssl-dev
+  - make
+  - python-requests
