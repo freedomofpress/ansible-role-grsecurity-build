@@ -8,3 +8,6 @@
 *.deb
 *.tar.gz
 *.pyc
+
+# No Ansible retry files
+*.retry

@@ -1,0 +1,74 @@
+---
+- name: Bootstrap user env.
+  hosts: all
+  remote_user: root
+  tasks:
+    - name: Set passwordless sudo.
+      lineinfile:
+        dest: /etc/sudoers
+        regexp: '^%sudo'
+        line: '%sudo ALL=(ALL) NOPASSWD:ALL'
+        validate: '/usr/sbin/visudo -cf %s'
+
+- name: Configure kernel build.
+  hosts: all
+  remote_user: vagrant
+  environment:
+    USER: vagrant
+  vars_prompt:
+    - name: source_tarball
+      prompt: Fullpath to source tarball
+      private: no
+      # Providing a default even though the var is required to provide
+      # better failure messages. If run via Molecule, Ansible will not
+      # prompt via `vars_prompt`; ansible-playbook must be called directly.
+      default: ''
+  tasks:
+    - name: Confirm tarball is fullpath.
+      assert:
+        that:
+          - "source_tarball is defined"
+          - "source_tarball != ''"
+          - "source_tarball.startswith('/')"
+        msg: Source tarball must be a fullpath.
+
+    - name: Copy source tarball to container.
+      unarchive:
+        src: "{{ source_tarball }}"
+        dest: "/home/vagrant/"
+        remote_src: false
+
+    - name: Find directory name of extracted source.
+      find:
+        paths:
+          - /home/vagrant
+        patterns:
+          - 'linux-*-grsec'
+        file_type: directory
+        recurse: no
+      register: extracted_source_dir_result
+
+    - name: Ensure we found exactly one directory.
+      assert:
+        that: extracted_source_dir_result.files|length == 1
+        msg: >-
+          Could not determine directory for extracted source.
+          Log in interactively and proceed with rebuilding.
+
+    # There's some duplication here with the role logic; rather than support
+    # tarball-rebuilds formally in the role, reimplementing a few barebones
+    # tasks and skipping running the entire role.
+    - name: Import role vars for package names.
+      include_vars: "{{ playbook_dir }}/../../vars/{{ ansible_distribution }}_{{ ansible_distribution_release }}.yml"
+
+    - name: Install core build requirements.
+      become: yes
+      apt:
+        name: "{{ item }}"
+        state: present
+      with_items: "{{ grsecurity_build_apt_packages }}"
+
+    - name: Rebuild kernel from source.
+      command: make deb-pkg
+      args:
+        chdir: "{{ extracted_source_dir_result.files[0].path }}"
