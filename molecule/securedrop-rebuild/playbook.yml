@@ -15,6 +15,8 @@
   remote_user: vagrant
   environment:
     USER: vagrant
+  vars:
+    rebuild_directory: /home/vagrant
   vars_prompt:
     - name: source_tarball
       prompt: Fullpath to source tarball
@@ -41,7 +43,7 @@
     - name: Find directory name of extracted source.
       find:
         paths:
-          - /home/vagrant
+          - "{{ rebuild_directory }}"
         patterns:
           - 'linux-*-grsec'
         file_type: directory
@@ -72,3 +74,21 @@
       command: make deb-pkg
       args:
         chdir: "{{ extracted_source_dir_result.files[0].path }}"
+
+    - name: Find newly build kernel packages.
+      find:
+        paths:
+          - "{{ rebuild_directory }}"
+        patterns: "linux*.deb"
+      register: rebuild_find_packages_result
+      tags: fetch
+
+    - name: Fetch built kernel package back to localhost.
+      fetch:
+        src: "{{ item }}"
+        dest: ./
+        flat: yes
+        fail_on_missing: yes
+      with_items: "{{ rebuild_find_packages_result.files|map(attribute='path')|list }}"
+      tags:
+        - fetch
