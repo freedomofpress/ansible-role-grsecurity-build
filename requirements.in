@@ -1,4 +1,4 @@
-ansible
+ansible<2.5
 docker<3.0.0
-molecule
+molecule<2.16
 pip-tools

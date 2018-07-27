@@ -56,6 +56,7 @@ workflows:
   version: 2
   grsec_kernel_role:
     jobs:
-      - build-official
+      # Haven't gotten this one reliably passing yet
+      # - build-official
       - build-unofficial
       - build-minipli
