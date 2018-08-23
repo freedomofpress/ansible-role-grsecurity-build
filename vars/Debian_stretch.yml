@@ -6,7 +6,8 @@ grsecurity_build_apt_packages:
   - fakeroot
   - gcc-6
   - gcc-6-plugin-dev
+  - kmod
   - libncurses5-dev
+  - libssl-dev
   - make
   - python-requests
-  - libssl-dev
