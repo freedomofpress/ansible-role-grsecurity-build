@@ -31,4 +31,4 @@
   roles:
     - role: ansible-role-grsecurity-build
       grsecurity_build_patch_type: stable3
-      grsecurity_build_strategy: manual
+      grsecurity_build_strategy: workstation-4.14
