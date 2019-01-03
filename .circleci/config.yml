@@ -12,7 +12,7 @@ jobs:
 
       - run:
           name: Install pip dependencies
-          command: pip install -r requirements.txt
+          command: pip install --require-hashes -r requirements.txt
 
       - run:
           name: Run Molecule linters.
@@ -29,7 +29,7 @@ jobs:
 
       - run:
           name: Install pip dependencies
-          command: pip install -r requirements.txt
+          command: pip install --require-hashes -r requirements.txt
 
       - run:
           name: Run Molecule linters.
@@ -46,7 +46,7 @@ jobs:
 
       - run:
           name: Install pip dependencies
-          command: pip install -r requirements.txt
+          command: pip install --require-hashes -r requirements.txt
 
       - run:
           name: Run Molecule linters.
