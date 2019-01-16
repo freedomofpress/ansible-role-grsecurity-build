@@ -31,6 +31,21 @@ qvm-clone --class StandaloneVM <template_vm> kernel-builder
 qvm-volume resize kernel-builder:root 40G
 ```
 
+If you would prefer using Template-based AppVMs or DispVMs, you can clone an
+existing template with Docker installed/configured, and create either an AppVM
+or DispVM based on this template:
+
+```
+qvm-clone --class TemplateVM <template_vm> kernel-builder-template
+qvm-volume resize kernel-builder-template:root 40G
+# If you want to create AppVM
+qvm-create --template kernel-builder-template kernel-builder --label=red
+# If you would rather create a DispVM templte
+qvm-create --template kernel-builder-template kernel-builder-dvm
+qvm-prefs custom-dvm template_for_dispvms True
+qvm-features custom-dvm appmenus-dispvm 1
+```
+
 The 40GB recommendation is to account for the ~10GB already used by a root volume.
 For slimmer kernel configs, less disk space will be required to build.
 
