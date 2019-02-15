@@ -13,7 +13,7 @@ Build documentation can be found in the `docs/build.md` file.
 ## Requirements
 
 ### Platforms
-Only Debian and Ubuntu are supported, due to the use of make-kpkg.
+Only Debian and Ubuntu are tested, but other platforms may work, as well.
 
 ### Resources
 For compiling the kernel, 2GB and 2 VCPUs is plenty. Depending on the config options
@@ -21,6 +21,33 @@ you specify, the compilation should take two to three hours on that hardware.
 Naturally, you can speed up the build by providing more resources.
 
 As for disk space, make sure you have at least 30GB to run the full kernel compile.
+
+If you wish to build under Qubes via one of the container-based Molecule scenarios,
+you'll need ample space on the root partition. Qubes does not support resizing root
+partitions of AppVMs, so create a StandAloneVM and grow its root volume:
+
+```
+qvm-clone --class StandaloneVM <template_vm> kernel-builder
+qvm-volume resize kernel-builder:root 40G
+```
+
+If you would prefer using Template-based AppVMs or DispVMs, you can clone an
+existing template with Docker installed/configured, and create either an AppVM
+or DispVM based on this template:
+
+```
+qvm-clone --class TemplateVM <template_vm> kernel-builder-template
+qvm-volume resize kernel-builder-template:root 40G
+# If you want to create AppVM
+qvm-create --template kernel-builder-template kernel-builder --label=red
+# If you would rather create a DispVM templte
+qvm-create --template kernel-builder-template kernel-builder-dvm
+qvm-prefs custom-dvm template_for_dispvms True
+qvm-features custom-dvm appmenus-dispvm 1
+```
+
+The 40GB recommendation is to account for the ~10GB already used by a root volume.
+For slimmer kernel configs, less disk space will be required to build.
 
 ### Credentials
 Furthermore, you must have a [grsecurity subscription] and export the
