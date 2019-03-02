@@ -7,7 +7,7 @@ lint:
   name: yamllint
 platforms:
   - name: grsec_build_jessie
-    image: debian:jessie
+    image: debian:jessie-20190204
 provisioner:
   name: ansible
   lint:
