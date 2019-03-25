@@ -158,13 +158,13 @@ cryptography==2.3 \
     --hash=sha256:cee18beb4c807b5c0b178f4fa2fae03cef9d51821a358c6890f8b23465b7e5d2 \
     --hash=sha256:d01dfc5c2b3495184f683574e03c70022674ca9a7be88589c5aba130d835ea90 \
     # via ansible, paramiko
-docker-pycreds==0.3.0 \
-    --hash=sha256:0a941b290764ea7286bd77f54c0ace43b86a8acd6eb9ead3de9840af52384079 \
-    --hash=sha256:8b0e956c8d206f832b06aa93a710ba2c3bcbacb5a314449c040b0b814355bbff \
+docker-pycreds==0.4.0 \
+    --hash=sha256:6ce3270bcaf404cc4c3e27e4b6c70d3521deae82fb508767870fdbf772d584d4 \
+    --hash=sha256:7266112468627868005106ec19cd0d722702d2b7d5912a28e19b826c3d37af49 \
     # via docker
-docker==2.7.0 \
-    --hash=sha256:144248308e8ea31c4863c6d74e1b55daf97cc190b61d0fe7b7313ab920d6a76c \
-    --hash=sha256:c1d4e37b1ea03b2b6efdd0379640f6ea372fefe56efa65d4d17c34c6b9d54558
+docker==3.7.1 \
+    --hash=sha256:0076504c42b6a671c8e7c252913f59852669f5f882522f4d320ec7613b853553 \
+    --hash=sha256:d2c14d2cc7d54818897cc6f3cf73923c4e7dfe12f08f7bddda9dbea7fa82ea36
 enum34==1.1.6 \
     --hash=sha256:2d81cbbe0e73112bdfe6ef8576f2238f2ba27dd0d55752a776c41d38b7da2850 \
     --hash=sha256:644837f692e5f550741432dd3f223bbb9852018674981b1664e5dc339387588a \
@@ -350,10 +350,9 @@ pyyaml==3.12 \
     --hash=sha256:c01b880ec30b5a6e6aa67b09a2fe3fb30473008c85cd6a67359a1b15ed6d83a4 \
     --hash=sha256:e863072cdf4c72eebf179342c94e6989c67185842d9997960b3e69290b2fa269 \
     # via ansible, ansible-lint, molecule, python-gilt, yamllint
-requests==2.19.1 \
-    --hash=sha256:63b52e3c866428a224f97cab011de738c36aec0185aa91cfacd418b5d58911d1 \
-    --hash=sha256:ec22d826a36ed72a7358ff3fe56cbd4ba69dd7a6718ffd450ff0e9df7a47ce6a \
-    # via cookiecutter, docker
+requests==2.21.0 \
+    --hash=sha256:502a824f31acdacb3a35b6690b5fbf0bc41d63a24a45c4004352b0242707598e \
+    --hash=sha256:7bf2a778576d825600030a110f3c0e3e8edc51dfaafe1c146e39a2027784957b
 sh==1.12.14 \
     --hash=sha256:ae3258c5249493cebe73cb4e18253a41ed69262484bad36fdb3efcb8ad8870bb \
     --hash=sha256:b52bf5833ed01c7b5c5fb73a7f71b3d98d48e9b9b8764236237bdc7ecae850fc \
