@@ -16,9 +16,12 @@
 
 - import_tasks: fetch_linux_kernel_source.yml
 
+
 - import_tasks: fetch_grsecurity_files.yml
   when: grsecurity_build_patch_filename is not defined or
         not grsecurity_build_patch_filename
+
+- import_tasks: copy_patches.yml
 
 - import_tasks: copy_grsecurity_files.yml
   when: grsecurity_build_patch_filename is defined and

@@ -1,0 +1,10 @@
+---
+- name: Copy e1000e i219 support patch.
+  copy:
+    src: "{{ e1000e_i219_patch_filename }}"
+    dest: "{{ grsecurity_build_download_directory }}/{{ e1000e_i219_patch_filename }}"
+
+- name: Copy e1000e i219lm support patch 
+  copy:
+    src: "{{ e1000e_i219lm_patch_filename }}"
+    dest: "{{ grsecurity_build_download_directory }}/{{ e1000e_i219lm_patch_filename }}"

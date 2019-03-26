@@ -126,3 +126,8 @@ grsecurity_build_env_vars:
 
 # Additional env variables to pass to the build process
 grsecurity_build_env_vars_addtl: {}
+
+# e1000e i219 (Kaby Lake) support patches
+e1000e_i219_patch_filename: '9cd34b3a1cfd47692cbef8cb0761475021883e18.txt'
+e1000e_i219lm_patch_filename: 'f3ed935de059b83394c3ecf2c64c93b57c8915fe.txt'
+
