@@ -11,19 +11,13 @@
     dest: "{{ grsecurity_build_download_directory }}/"
 
 
-- name: Apply e1000e i219lm patch.
+- name: Apply custom patches (e.g. for e1000e support)
   patch:
     remote_src: true
-    src: "{{ grsecurity_build_download_directory }}/{{ e1000e_i219lm_patch_filename }}"
+    src: "{{ grsecurity_build_download_directory }}/{{ item|basename }}"
     basedir: "{{ grsecurity_build_linux_source_directory }}"
     strip: 1
-
-- name: Apply e1000e i219 patch.
-  patch:
-    remote_src: true
-    src: "{{ grsecurity_build_download_directory }}/{{ e1000e_i219_patch_filename }}"
-    basedir: "{{ grsecurity_build_linux_source_directory }}"
-    strip: 1
+  with_items: "{{ grsecurity_build_custom_patches }}"
 
 - name: Apply grsecurity patch.
   patch:
