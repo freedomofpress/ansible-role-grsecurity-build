@@ -132,5 +132,6 @@ e1000e_i219_patch_filename: '9cd34b3a1cfd47692cbef8cb0761475021883e18.txt'
 e1000e_i219lm_patch_filename: 'f3ed935de059b83394c3ecf2c64c93b57c8915fe.txt'
 
 # Provide filepaths to local patches to apply to the source tree prior to building.
-# By default, adds e1000e patches, but only for 4.4 kernels.
-grsecurity_build_custom_patches: "{{ [e1000e_i219_patch_filename, e1000e_i219lm_patch_filename] if grsecurity_build_patch_type == 'stable2' else [] }}"
+# By default, adds e1000e patches, but only for 4.4 kernels. Order is important!
+# Patches will be applied in the order they're declared in the list.
+grsecurity_build_custom_patches: "{{ [e1000e_i219lm_patch_filename, e1000e_i219_patch_filename] if grsecurity_build_patch_type == 'stable2' else [] }}"
