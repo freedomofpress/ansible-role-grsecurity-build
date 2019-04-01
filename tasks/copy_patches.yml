@@ -1,0 +1,6 @@
+---
+- name: Copy custom patches (e.g. for e1000e support)
+  copy:
+    src: "{{ item }}"
+    dest: "{{ grsecurity_build_download_directory }}/{{ item|basename }}"
+  with_items: "{{ grsecurity_build_custom_patches }}"

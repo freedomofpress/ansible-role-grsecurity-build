@@ -10,6 +10,15 @@
     src: "{{ grsecurity_build_download_directory }}/linux-{{ linux_kernel_version }}.tar"
     dest: "{{ grsecurity_build_download_directory }}/"
 
+
+- name: Apply custom patches (e.g. for e1000e support)
+  patch:
+    remote_src: true
+    src: "{{ grsecurity_build_download_directory }}/{{ item|basename }}"
+    basedir: "{{ grsecurity_build_linux_source_directory }}"
+    strip: 1
+  with_items: "{{ grsecurity_build_custom_patches }}"
+
 - name: Apply grsecurity patch.
   patch:
     remote_src: true
