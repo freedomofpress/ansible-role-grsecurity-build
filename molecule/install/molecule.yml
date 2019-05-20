@@ -12,8 +12,8 @@ platforms:
     box: bento/ubuntu-14.04
     instance_raw_config_args:
       - "vm.synced_folder './', '/vagrant', disabled: true"
-  - name: grsecurity-install-debian-jessie
-    box: debian/jessie64
+  - name: grsecurity-install-debian-stretch
+    box: debian/stretch64
     instance_raw_config_args:
       - "vm.synced_folder './', '/vagrant', disabled: true"
 provisioner:

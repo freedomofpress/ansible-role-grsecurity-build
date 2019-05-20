@@ -6,8 +6,8 @@ driver:
 lint:
   name: yamllint
 platforms:
-  - name: grsecurity-build-debian-jessie
-    image: debian:jessie-20190204
+  - name: grsecurity-build-debian-stretch
+    image: debian:strecth-20190506
   - name: grsecurity-build-ubuntu-trusty
     image: ubuntu:trusty-20190122
 provisioner:
