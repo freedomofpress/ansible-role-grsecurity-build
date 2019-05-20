@@ -4,7 +4,7 @@ galaxy_info:
   description: Builds grsecurity-patched Linux kernel images
   company: Freedom of the Press Foundation (@freedomofpress)
   license: MIT
-  min_ansible_version: 2.4
+  min_ansible_version: 2.6
   platforms:
     - name: Debian
       versions:
