@@ -8,8 +8,8 @@ lint:
 platforms:
   - name: grsecurity-build-debian-stretch
     image: debian:strecth-20190506
-  - name: grsecurity-build-ubuntu-trusty
-    image: ubuntu:trusty-20190122
+  - name: grsecurity-build-ubuntu-xenial
+    image: ubuntu:xenial-20190122
 provisioner:
   name: ansible
   lint:

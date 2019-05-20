@@ -9,8 +9,8 @@
 
 - name: clone ubuntu overlay git repository (slow!)
   git:
-    repo: git://kernel.ubuntu.com/ubuntu/ubuntu-trusty.git
-    dest: "{{ grsecurity_build_download_directory }}/ubuntu-trusty"
+    repo: git://kernel.ubuntu.com/ubuntu/ubuntu-xenial.git
+    dest: "{{ grsecurity_build_download_directory }}/ubuntu-xenial"
     force: yes
     # since this clone takes a long time, just grab
     # the first layer. can then pull manually to update.
@@ -30,7 +30,7 @@
 
 - name: copy ubuntu overlay control files
   command: >
-     cp {{ grsecurity_build_download_directory }}/ubuntu-trusty/debian/control-scripts/{{ item }}
+     cp {{ grsecurity_build_download_directory }}/ubuntu-xenial/debian/control-scripts/{{ item }}
         {{ grsecurity_build_download_directory }}/ubuntu-package/pkg/image/
   with_items:
     - postinst
@@ -43,6 +43,6 @@
 
 - name: copy ubuntu overlay header files
   copy:
-    src: "{{ grsecurity_build_download_directory }}/ubuntu-trusty/debian/control-scripts/headers-postinst"
+    src: "{{ grsecurity_build_download_directory }}/ubuntu-xenial/debian/control-scripts/headers-postinst"
     dest: "{{ grsecurity_build_download_directory }}/ubuntu-package/pkg/headers/headers-postinst"
     remote_src: "yes"
