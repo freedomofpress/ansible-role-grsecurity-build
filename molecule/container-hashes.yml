@@ -1,0 +1,9 @@
+---
+# Map of human-readable container names and their sha256 checksums.
+# Declaring once, so that all scenarios can look up the info.
+
+# hash is stretch-20190506
+debian-stretch: "sha256:75f7d0590b45561bfa443abad0b3e0f86e2811b1fc176f786cd30eb078d1846f"
+
+# hash is xenial-20190515
+ubuntu-xenial: "sha256:cad5e101ab30bb7f7698b277dd49090f520fe063335643990ce8fbd15ff920ef"

@@ -7,9 +7,14 @@ lint:
   name: yamllint
 platforms:
   - name: grsecurity-build-debian-stretch
-    image: debian:strecth-20190506
+    image: debian
+    # Declare key for hash lookup in YAML config
+    image_hash_lookup: debian-stretch
+
   - name: grsecurity-build-ubuntu-xenial
-    image: ubuntu:xenial-20190122
+    image: ubuntu
+    image_hash_lookup: ubuntu-xenial
+
 provisioner:
   name: ansible
   lint:
