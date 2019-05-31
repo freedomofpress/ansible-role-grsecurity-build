@@ -8,8 +8,7 @@ lint:
 platforms:
   - name: grsecurity-build-stable3-stretch
     image: debian
-    # hash is debian stretch
-    image_hash: sha256:75f7d0590b45561bfa443abad0b3e0f86e2811b1fc176f786cd30eb078d1846f
+    image_hash_lookup: debian-stretch
 provisioner:
   name: ansible
   lint:
