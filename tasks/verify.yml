@@ -33,7 +33,7 @@
 - name: Register current release tag for Ubuntu overlay.
   command: git tag
   args:
-    chdir: "{{ grsecurity_build_download_directory }}/ubuntu-trusty"
+    chdir: "{{ grsecurity_build_download_directory }}/ubuntu-xenial"
   register: ubuntu_overlay_tag_result
   changed_when: false
   when: grsecurity_build_include_ubuntu_overlay == true
@@ -46,7 +46,7 @@
 - name: Verify Ubuntu overlay signature.
   command: git tag --verify {{ ubuntu_overlay_tag_result.stdout }}
   args:
-    chdir: "{{ grsecurity_build_download_directory }}/ubuntu-trusty"
+    chdir: "{{ grsecurity_build_download_directory }}/ubuntu-xenial"
   changed_when: false
   when: grsecurity_build_include_ubuntu_overlay == true
   tags:

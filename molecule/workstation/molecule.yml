@@ -7,7 +7,8 @@ lint:
   name: yamllint
 platforms:
   - name: grsecurity-build-stable3-stretch
-    image: debian:stretch-20190204
+    image: debian
+    image_hash_lookup: debian-stretch
 provisioner:
   name: ansible
   lint:

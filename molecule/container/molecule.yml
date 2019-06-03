@@ -6,10 +6,15 @@ driver:
 lint:
   name: yamllint
 platforms:
-  - name: grsecurity-build-debian-jessie
-    image: debian:jessie-20190204
-  - name: grsecurity-build-ubuntu-trusty
-    image: ubuntu:trusty-20190122
+  - name: grsecurity-build-debian-stretch
+    image: debian
+    # Declare key for hash lookup in YAML config
+    image_hash_lookup: debian-stretch
+
+  - name: grsecurity-build-ubuntu-xenial
+    image: ubuntu
+    image_hash_lookup: ubuntu-xenial
+
 provisioner:
   name: ansible
   lint:

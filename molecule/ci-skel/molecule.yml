@@ -6,8 +6,9 @@ driver:
 lint:
   name: yamllint
 platforms:
-  - name: grsec_build_jessie
-    image: debian:jessie
+  - name: grsec_build_stretch
+    image: debian
+    image_hash_lookup: debian-stretch
 provisioner:
   name: ansible
   lint:

@@ -6,8 +6,9 @@ driver:
 lint:
   name: yamllint
 platforms:
-  - name: grsecurity-build-securedrop-trusty
-    image: ubuntu:xenial-20190122
+  - name: grsecurity-build-securedrop-xenial
+    image: ubuntu
+    image_hash_lookup: ubuntu-xenial
 provisioner:
   name: ansible
   lint:

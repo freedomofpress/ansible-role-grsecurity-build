@@ -16,4 +16,4 @@
   register: _fetch_grsec_results
   delay: 15
   retries: 5
-  until: _fetch_grsec_results.status == 200
+  until: not _fetch_grsec_results|failed
