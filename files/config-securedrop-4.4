@@ -1,6 +1,6 @@
 #
 # Automatically generated file; DO NOT EDIT.
-# Linux/x86 4.4.167 Kernel Configuration
+# Linux/x86 4.4.182 Kernel Configuration
 #
 CONFIG_64BIT=y
 CONFIG_X86_64=y
@@ -2968,6 +2968,7 @@ CONFIG_N_HDLC=m
 # CONFIG_N_GSM is not set
 CONFIG_TRACE_ROUTER=m
 CONFIG_TRACE_SINK=m
+CONFIG_LDISC_AUTOLOAD=y
 CONFIG_DEVMEM=y
 
 #
@@ -3040,7 +3041,6 @@ CONFIG_HW_RANDOM_VIA=m
 CONFIG_HW_RANDOM_VIRTIO=m
 CONFIG_HW_RANDOM_TPM=m
 CONFIG_NVRAM=m
-CONFIG_R3964=m
 CONFIG_APPLICOM=m
 
 #
@@ -6551,8 +6551,6 @@ CONFIG_RAS=y
 # CONFIG_LIBNVDIMM is not set
 # CONFIG_NVMEM is not set
 # CONFIG_STM is not set
-# CONFIG_STM_DUMMY is not set
-# CONFIG_STM_SOURCE_CONSOLE is not set
 # CONFIG_INTEL_TH is not set
 
 #
@@ -6698,6 +6696,8 @@ CONFIG_NTFS_FS=m
 # Pseudo filesystems
 #
 CONFIG_PROC_FS=y
+# CONFIG_PROC_KCORE is not set
+# CONFIG_PROC_VMCORE is not set
 CONFIG_PROC_SYSCTL=y
 # CONFIG_PROC_CHILDREN is not set
 CONFIG_KERNFS=y
