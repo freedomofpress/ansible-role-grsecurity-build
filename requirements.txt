@@ -7,8 +7,8 @@
 ansible-lint==3.4.21 \
     --hash=sha256:fd86229fe6315137537d5380a13512e0cefa169d740a5a9e1f60dbd9ef6d6704 \
     # via molecule
-ansible==2.6.16 \
-    --hash=sha256:e883fe2a662bdd1f6e8bbe03caf1d8466fda6caba2a771528dc17b31a91d2716
+ansible==2.6.18 \
+    --hash=sha256:588e4d85ec21cddf959a66cbe62bbfcff6236a1cd44b1264b14a19d34b8dffdf
 anyconfig==0.9.4 \
     --hash=sha256:fb0528b9aaef7fdf301efa55bac69f9733b860c83add7b25a17bf82c34ee82dd \
     # via molecule
@@ -28,13 +28,6 @@ attrs==19.1.0 \
     --hash=sha256:69c0dbf2ed392de1cb5ec704444b08a5ef81680a61cb899dc08127123af36a79 \
     --hash=sha256:f0b870f674851ecbfbbbd364d6b5cbdff9dcedbc7f3f5e18a6891057f21fe399 \
     # via pytest
-backports.functools-lru-cache==1.5 \
-    --hash=sha256:9d98697f088eb1b0fa451391f91afb5e3ebde16bbdb272819fd091151fda4f1a \
-    --hash=sha256:f0b0e4eba956de51238e17573b7087e852dfe9854afd2e9c873f73fc0ca0a6dd \
-    # via arrow
-backports.ssl-match-hostname==3.7.0.1 \
-    --hash=sha256:bb82e60f9fbf4c080eabd957c39f0641f0fc247d9a16e31e26d594d8f42b9fd2 \
-    # via docker
 bcrypt==3.1.6 \
     --hash=sha256:0ba875eb67b011add6d8c5b76afbd92166e98b1f1efab9433d5dc0fafc76e203 \
     --hash=sha256:21ed446054c93e209434148ef0b362432bb82bbdaf7beef70a32c221f3e33d1c \
@@ -112,10 +105,6 @@ colorama==0.3.9 \
     --hash=sha256:463f8483208e921368c9f306094eb6f725c6ca42b0f97e313cb5d5512459feda \
     --hash=sha256:48eb22f4f8461b1df5734a074b57042430fb06e1d61bd1e11b078c0fe6d7a1f1 \
     # via molecule, python-gilt
-configparser==3.7.4 \
-    --hash=sha256:8be81d89d6e7b4c0d4e44bcc525845f6da25821de80cb5e06e7e0238a2899e32 \
-    --hash=sha256:da60d0014fd8c55eb48c1c5354352e363e2d30bbf7057e5e171a468390184c75 \
-    # via flake8
 cookiecutter==1.6.0 \
     --hash=sha256:1316a52e1c1f08db0c9efbf7d876dbc01463a74b155a0d83e722be88beda9a3e \
     --hash=sha256:ed8f54a8fc79b6864020d773ce11539b5f08e4617f353de1f22d23226f6a0d36 \
@@ -144,12 +133,6 @@ cryptography==2.6.1 \
 docker==4.0.1 \
     --hash=sha256:3db499d4d25847fed86acf8e100c989f7bc0f75a6fff6c52855726ada1d124f6 \
     --hash=sha256:f61c37d721b489b7d55ef631b241be2d6a5884c3ffe63dc8f7dd9a3c3cd60489
-enum34==1.1.6 \
-    --hash=sha256:2d81cbbe0e73112bdfe6ef8576f2238f2ba27dd0d55752a776c41d38b7da2850 \
-    --hash=sha256:644837f692e5f550741432dd3f223bbb9852018674981b1664e5dc339387588a \
-    --hash=sha256:6bd0f6ad48ec2aa117d3d141940d484deccda84d4fcd884f5c3d93c23ecd8c79 \
-    --hash=sha256:8ad8c4783bf61ded74527bffb48ed9b54166685e4230386a9ed9b1279e2df5b1 \
-    # via cryptography, flake8
 fasteners==0.15 \
     --hash=sha256:007e4d2b2d4a10093f67e932e5166722d2eab83b77724156e92ad013c6226574 \
     --hash=sha256:3a176da6b70df9bb88498e1a18a9e4a8579ed5b9141207762368a1017bf8f5ef \
@@ -158,10 +141,6 @@ flake8==3.5.0 \
     --hash=sha256:7253265f7abd8b313e3892944044a365e3f4ac3fcdcfb4298f55ee9ddf188ba0 \
     --hash=sha256:c7841163e2b576d435799169b78703ad6ac1bbb0f199994fc05f700b2a90ea37 \
     # via molecule
-funcsigs==1.0.2 \
-    --hash=sha256:330cc27ccbf7f1e992e69fef78261dc7c6569012cf397db8d3de0234e6c937ca \
-    --hash=sha256:a7bb0f2cf3a3fd1ab2732cb49eba4252c2af4240442415b4abce3b87022a8f50 \
-    # via pytest
 future==0.17.1 \
     --hash=sha256:67045236dcfd6816dc439556d009594abf643e5eb48992e36beac09c2ca659b8 \
     # via cookiecutter
@@ -174,10 +153,6 @@ idna==2.8 \
     --hash=sha256:c357b3f628cf53ae2c4c05627ecc484553142ca23264e593d327bcde5e9c3407 \
     --hash=sha256:ea8b7f6188e6fa117537c3df7da9fc686d485087abf6ac197f9c46432f7e4a3c \
     # via requests
-ipaddress==1.0.22 \
-    --hash=sha256:64b28eec5e78e7510698f6d4da08800a5c575caa4a286c93d651c5d3ff7b6794 \
-    --hash=sha256:b146c751ea45cad6188dd6cf2d9b757f6f4f8d6ffb96a023e6f2e26eea02a72c \
-    # via cryptography, docker
 jinja2-time==0.2.0 \
     --hash=sha256:d14eaa4d315e7688daa4969f616f226614350c48730bfa1692d2caebd8c90d40 \
     --hash=sha256:d3eab6605e3ec8b7a0863df09cc1d23714908fa61aa6986a845c20ba488b4efa \
@@ -237,10 +212,6 @@ paramiko==2.4.2 \
     --hash=sha256:3c16b2bfb4c0d810b24c40155dbfd113c0521e7e6ee593d704e84b4c658a1f3b \
     --hash=sha256:a8975a7df3560c9f1e2b43dc54ebd40fd00a7017392ca5445ce7df409f900fcb \
     # via ansible
-pathlib2==2.3.3 \
-    --hash=sha256:25199318e8cc3c25dcb45cbe084cc061051336d5a9ea2a12448d3d8cb748f742 \
-    --hash=sha256:5887121d7f7df3603bca2f710e7219f3eca0eb69e0b7cc6e0a022e155ac931a7 \
-    # via pytest
 pathspec==0.5.9 \
     --hash=sha256:54a5eab895d89f342b52ba2bffe70930ef9f8d96e398cccf530d21fa0516a873 \
     # via yamllint
@@ -346,19 +317,6 @@ pyyaml==3.12 \
 requests==2.22.0 \
     --hash=sha256:11e007a8a2aa0323f5a921e9e6a2d7e4e67d9877e85773fba9ba6419025cbeb4 \
     --hash=sha256:9cf5292fcd0f598c671cfc1e0d7d1a7f13bb8085e9a590f48c010551dc6c4b31
-scandir==1.10.0 \
-    --hash=sha256:2586c94e907d99617887daed6c1d102b5ca28f1085f90446554abf1faf73123e \
-    --hash=sha256:2ae41f43797ca0c11591c0c35f2f5875fa99f8797cb1a1fd440497ec0ae4b022 \
-    --hash=sha256:2b8e3888b11abb2217a32af0766bc06b65cc4a928d8727828ee68af5a967fa6f \
-    --hash=sha256:2c712840c2e2ee8dfaf36034080108d30060d759c7b73a01a52251cc8989f11f \
-    --hash=sha256:4d4631f6062e658e9007ab3149a9b914f3548cb38bfb021c64f39a025ce578ae \
-    --hash=sha256:67f15b6f83e6507fdc6fca22fedf6ef8b334b399ca27c6b568cbfaa82a364173 \
-    --hash=sha256:7d2d7a06a252764061a020407b997dd036f7bd6a175a5ba2b345f0a357f0b3f4 \
-    --hash=sha256:8c5922863e44ffc00c5c693190648daa6d15e7c1207ed02d6f46a8dcc2869d32 \
-    --hash=sha256:92c85ac42f41ffdc35b6da57ed991575bdbe69db895507af88b9f499b701c188 \
-    --hash=sha256:b24086f2375c4a094a6b51e78b4cf7ca16c721dcee2eddd7aa6494b42d6d519d \
-    --hash=sha256:cb925555f43060a1745d0a321cca94bcea927c50114b623d73179189a4e100ac \
-    # via pathlib2
 sh==1.12.14 \
     --hash=sha256:ae3258c5249493cebe73cb4e18253a41ed69262484bad36fdb3efcb8ad8870bb \
     --hash=sha256:b52bf5833ed01c7b5c5fb73a7f71b3d98d48e9b9b8764236237bdc7ecae850fc \
@@ -366,7 +324,7 @@ sh==1.12.14 \
 six==1.11.0 \
     --hash=sha256:70e8a77beed4562e7f14fe23a786b54f6296e34344c23bc42f07b15018ff98e9 \
     --hash=sha256:832dc0e10feb1aa2c68dcc57dbb658f1c7e65b9b61af69048abc87a2db00a0eb \
-    # via ansible-lint, bcrypt, click-completion, cryptography, docker, fasteners, molecule, more-itertools, pathlib2, pip-tools, pynacl, pytest, python-dateutil, testinfra, websocket-client
+    # via ansible-lint, bcrypt, click-completion, cryptography, docker, fasteners, molecule, more-itertools, pip-tools, pynacl, pytest, python-dateutil, testinfra, websocket-client
 tabulate==0.8.2 \
     --hash=sha256:e4ca13f26d0a6be2a2915428dc21e732f1e44dad7f76d7030b2ef1ec251cf7f2 \
     # via molecule
