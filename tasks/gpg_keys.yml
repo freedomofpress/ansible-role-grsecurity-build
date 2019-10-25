@@ -23,7 +23,7 @@
   register: gpg_import_ubuntu_pubkeys_result
   changed_when: "'imported: 1' in gpg_import_ubuntu_pubkeys_result.stderr"
   with_items: "{{ grsecurity_build_gpg_keys_ubuntu }}"
-  when: grsecurity_build_include_ubuntu_overlay == true
+  when: grsecurity_build_include_ubuntu_overlay
 
 - name: Import GPG keys for building minipli's kernel patches
   shell: gpg --import - <<< "{{ lookup('file', item.fingerprint+'.pub')|escape }}"

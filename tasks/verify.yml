@@ -36,7 +36,7 @@
     chdir: "{{ grsecurity_build_download_directory }}/ubuntu-xenial"
   register: ubuntu_overlay_tag_result
   changed_when: false
-  when: grsecurity_build_include_ubuntu_overlay == true
+  when: grsecurity_build_include_ubuntu_overlay
   # ansible linter wants us to use git module, dont feel like debugging
   # this at the moment
   tags:
@@ -48,7 +48,7 @@
   args:
     chdir: "{{ grsecurity_build_download_directory }}/ubuntu-xenial"
   changed_when: false
-  when: grsecurity_build_include_ubuntu_overlay == true
+  when: grsecurity_build_include_ubuntu_overlay
   tags:
     - skip_ansible_lint
     - ubuntu_overlay

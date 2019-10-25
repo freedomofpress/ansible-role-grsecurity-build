@@ -31,6 +31,6 @@
     flat: yes
     fail_on_missing: yes
   with_items: "{{ grsecurity_build_find_packages_result.files|map(attribute='path')|list }}"
-  when: grsecurity_build_fetch_packages == true
+  when: grsecurity_build_fetch_packages
   tags:
     - fetch
