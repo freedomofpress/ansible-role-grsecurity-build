@@ -7,3 +7,6 @@ debian-stretch: "sha256:75f7d0590b45561bfa443abad0b3e0f86e2811b1fc176f786cd30eb0
 
 # hash is xenial-20190515
 ubuntu-xenial: "sha256:cad5e101ab30bb7f7698b277dd49090f520fe063335643990ce8fbd15ff920ef"
+
+# hash is buster 20191014
+debian-buster: "sha256:41f76363fd83982e14f7644486e1fb04812b3894aa4e396137c3435eaf05de88"

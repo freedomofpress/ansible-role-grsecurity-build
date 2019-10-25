@@ -15,6 +15,10 @@ platforms:
     image: ubuntu
     image_hash_lookup: ubuntu-xenial
 
+  - name: grsecurity-build-debian-buster
+    image: debian
+    # Declare key for hash lookup in YAML config
+    image_hash_lookup: debian-buster
 provisioner:
   name: ansible
   lint:

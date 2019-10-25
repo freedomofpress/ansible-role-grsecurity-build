@@ -6,9 +6,9 @@ driver:
 lint:
   name: yamllint
 platforms:
-  - name: grsecurity-build-stable3-stretch
+  - name: grsecurity-build-stable3-buster
     image: debian
-    image_hash_lookup: debian-stretch
+    image_hash_lookup: debian-buster
 provisioner:
   name: ansible
   lint:
