@@ -32,3 +32,5 @@
     - role: ansible-role-grsecurity-build
       grsecurity_build_patch_type: stable3
       grsecurity_build_strategy: workstation-4.14
+      grsecurity_build_env_vars_addtl:
+        LOCALVERSION: "-workstation"
