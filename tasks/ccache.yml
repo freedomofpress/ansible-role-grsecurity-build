@@ -15,7 +15,8 @@
 
 - name: Read current ccache cache size.
   shell: >
-    ccache --show-stats
+    set -o pipefail
+    | ccache --show-stats
     | grep -P '^max cache size'
     | perl -lane 'print "$F[-2] $F[-1]"'
   changed_when: false

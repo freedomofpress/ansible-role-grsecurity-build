@@ -20,7 +20,8 @@
 
 - name: Read checksum for kernel tarball.
   shell: >
-    grep {{ linux_tarball_xz_filename | quote }}
+    set -o pipefail
+    | grep {{ linux_tarball_xz_filename | quote }}
     {{ linux_source_checksums.dest | quote }} | cut -d' ' -f1
   changed_when: false
   register: linux_tarball_checksum

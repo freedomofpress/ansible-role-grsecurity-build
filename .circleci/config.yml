@@ -3,7 +3,7 @@ version: 2
 jobs:
   build-unofficial:
     docker:
-      - image: quay.io/freedomofpress/circleci-docker:latest
+      - image: quay.io/freedomofpress/circleci-docker-python3:buster-19.03.4
     working_directory: ~/ansible-role-grsecurity-build
 
     steps:
@@ -12,7 +12,7 @@ jobs:
 
       - run:
           name: Install pip dependencies
-          command: pip install --require-hashes -r requirements.txt
+          command: pip3 install --require-hashes -r requirements.txt
 
       - run:
           name: Run Molecule linters.
@@ -20,7 +20,7 @@ jobs:
 
   build-minipli:
     docker:
-      - image: quay.io/freedomofpress/circleci-docker:latest
+      - image: quay.io/freedomofpress/circleci-docker-python3:buster-19.03.4
     working_directory: ~/ansible-role-grsecurity-build
 
     steps:
@@ -29,7 +29,7 @@ jobs:
 
       - run:
           name: Install pip dependencies
-          command: pip install --require-hashes -r requirements.txt
+          command: pip3 install --require-hashes -r requirements.txt
 
       - run:
           name: Run Molecule linters.
@@ -37,7 +37,7 @@ jobs:
 
   build-official:
     docker:
-      - image: quay.io/freedomofpress/circleci-docker:latest
+      - image: quay.io/freedomofpress/circleci-docker-python3:buster-19.03.4
     working_directory: ~/ansible-role-grsecurity-build
 
     steps:
@@ -46,7 +46,7 @@ jobs:
 
       - run:
           name: Install pip dependencies
-          command: pip install --require-hashes -r requirements.txt
+          command: pip3 install --require-hashes -r requirements.txt
 
       - run:
           name: Run Molecule linters.

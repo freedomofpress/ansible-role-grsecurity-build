@@ -29,13 +29,13 @@
 
 - import_tasks: fetch_ubuntu_overlay.yml
   tags: ubuntu_overlay
-  when: grsecurity_build_include_ubuntu_overlay == true
+  when: grsecurity_build_include_ubuntu_overlay
 
 - import_tasks: verify.yml
 
 - import_tasks: ccache.yml
   tags: ccache
-  when: grsecurity_build_use_ccache == true
+  when: grsecurity_build_use_ccache
 
 - import_tasks: prepare_source_directory.yml
   tags: prepare
