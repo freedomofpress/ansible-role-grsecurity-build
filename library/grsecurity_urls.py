@@ -30,8 +30,7 @@ EXAMPLES = '''
 - action: grsecurity_urls patch_type=minipli
 '''
 
-from StringIO import StringIO
-from urlparse import urljoin
+from urllib.parse import urljoin
 import re
 
 HAS_REQUESTS = True
@@ -150,7 +149,7 @@ class GrsecurityURLs():
         Get latest patch name, according to sought patch type.
         """
         r = requests.get(self.patch_name_url)
-        patch_name = r.content.rstrip()
+        patch_name = r.content.rstrip().decode("utf-8")
 
         config = dict()
         config['grsecurity_patch_filename'] = patch_name

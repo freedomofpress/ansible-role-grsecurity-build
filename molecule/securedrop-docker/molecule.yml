@@ -13,6 +13,8 @@ provisioner:
   name: ansible
   lint:
     name: ansible-lint
+  options:
+    e: "@ansible-override-vars.yml"
 scenario:
   name: securedrop-docker
   test_sequence:
