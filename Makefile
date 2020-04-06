@@ -8,6 +8,14 @@ securedrop-rebuild: ## Rebuilds SecureDrop kernels from source tarball.
 	@ansible-playbook -vv --diff molecule/securedrop-rebuild/playbook.yml \
 		-i molecule/securedrop-rebuild/.molecule/ansible_inventory.yml
 
+.PHONY: securedrop-core
+securedrop-core: ## Builds kernels for SecureDrop servers
+	molecule converge -s securedrop-docker
+
+.PHONY: securedrop-workstation
+securedrop-workstation: ## Builds kernels for SecureDrop Workstation VMs
+	molecule converge -s workstation
+
 .PHONY: help
 help: ## Prints this message and exits.
 	@printf "Subcommands:\n\n"
