@@ -12,6 +12,7 @@
 
 - name: Configure kernel build.
   hosts: all
+  gather_facts: yes
   pre_tasks:
     # You can set these values via env vars:
     #
@@ -25,6 +26,11 @@
         that:
           - grsecurity_build_download_username != ''
           - grsecurity_build_download_password != ''
+
+    - name: Ensure modern Python is used to manage build
+      assert:
+        that:
+          - ansible_python_interpreter == "/usr/bin/python3"
 
   remote_user: vagrant
   environment:
