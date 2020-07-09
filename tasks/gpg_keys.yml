@@ -9,7 +9,7 @@
   with_items: "{{ grsecurity_build_gpg_keys }}"
 
 - name: Import GPG keys for building Linux kernel.
-  shell: gpg --import - <<< "{{ lookup('file', item.fingerprint+'.pub')|escape }}"
+  shell: gpg --import - <<< "{{ lookup('file', item.fingerprint+'.pub')| first | escape }}"
   args:
     executable: /bin/bash  # required for string redirection
   register: gpg_import_linux_pubkeys_result
@@ -17,7 +17,7 @@
   with_items: "{{ grsecurity_build_gpg_keys }}"
 
 - name: Import GPG keys for building Linux kernel with Ubuntu overlay.
-  shell: gpg --import - <<< "{{ lookup('file', item.fingerprint+'.pub')|escape }}"
+  shell: gpg --import - <<< "{{ lookup('file', item.fingerprint+'.pub')| first | escape }}"
   args:
     executable: /bin/bash  # required for string redirection
   register: gpg_import_ubuntu_pubkeys_result
@@ -26,7 +26,7 @@
   when: grsecurity_build_include_ubuntu_overlay
 
 - name: Import GPG keys for building minipli's kernel patches
-  shell: gpg --import - <<< "{{ lookup('file', item.fingerprint+'.pub')|escape }}"
+  shell: gpg --import - <<< "{{ lookup('file', item.fingerprint+'.pub')| first | escape }}"
   args:
     executable: /bin/bash  # required for string redirection
   register: gpg_import_minipli_pubkeys_result
