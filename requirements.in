@@ -1,6 +1,6 @@
 ansible>=2.7.16,<2.8
 docker>=3.5.1
 molecule
-pip-tools
+pip-tools>=5.0.0
 requests>=2.21.0
 urllib3>1.25.9
