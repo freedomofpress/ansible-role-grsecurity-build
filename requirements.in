@@ -1,4 +1,5 @@
 ansible>=2.7.16,<2.8
+cryptography>=3.2.1
 docker>=3.5.1
 molecule
 pip-tools>=5.0.0
