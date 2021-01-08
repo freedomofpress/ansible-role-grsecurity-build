@@ -1,2 +1,5 @@
-skip_list:
-  - '602'
+warn_list:  # or 'skip_list' to silence them completely
+  - '106'  # Role name {} does not match ``^[a-z][a-z0-9_]+$`` pattern
+  - '208'  # File permissions unset or incorrect
+  - '602'  # Don't compare to empty string
+  - experimental  # all rules tagged as experimental
